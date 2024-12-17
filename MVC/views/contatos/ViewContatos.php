@@ -1,5 +1,5 @@
 <?php 
-    require_once "MVC/controllers/ControllerContatos.php";
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
     $controllerContato = new ControllerContatos();
     $dados = $controllerContato->getData();
 ?>
@@ -33,7 +33,10 @@
                         <?= $content['dataNascimentoContato']?>
                     </th>
                 </tr>
-                <?php endforeach ?>
+            <?php endforeach ?>
             </tbody>
     </table>
+    <button class="adicionarContatosButton">
+        <a href="index.php?page=adicionarContatos">Adicionar contato</a>
+    </button>
 </section>

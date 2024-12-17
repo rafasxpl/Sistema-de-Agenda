@@ -7,3 +7,26 @@ table, tr, th, td {
 th, td {
     padding: 0.5em;
 }
+
+section {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.adicionarContatosButton {
+    background-color: rgb(117, 255, 99);
+    border-radius: 5%;
+    padding: 1em;
+    border: none;
+    cursor: pointer;
+}
+
+.adicionarContatosButton:hover {
+    background-color: rgb(51, 255, 0);
+}
+
+.adicionarContatosButton a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
