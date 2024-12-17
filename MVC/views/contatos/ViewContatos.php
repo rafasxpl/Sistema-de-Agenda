@@ -1,7 +1,7 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
     $controllerContato = new ControllerContatos();
-    $dados = $controllerContato->getData();
+    $dadosContatos = $controllerContato->resgatarDadosContatos();
 ?>
 <section>
     <table>
@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach($dados as $content):?>
+            <?php foreach($dadosContatos as $content):?>
                 <tr>
                     <th>
                         <?= $content['nomeContato'] ?>

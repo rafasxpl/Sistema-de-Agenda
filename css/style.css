@@ -14,10 +14,10 @@ ul li a {
     text-decoration: none;
 }
 
-main {
+/* main {
     display: flex;
     justify-content: center;
-}
+} */
 
 section {
     display: flex !important;

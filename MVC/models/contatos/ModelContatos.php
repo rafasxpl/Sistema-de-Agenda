@@ -1,12 +1,13 @@
 <?php 
-    require_once "../Connection.php";
+    require_once "MVC/models/Connection.php";
     
     class ModelContatos {
 
         public static function resgatarDadosContatos() : array {
-            $conexao = new Connection();
-            return Connection::resgatarDados("contatos");
+            return Connection::resgatarDadosTabela("contatos");
+        }
+
+        public static function cadastrarInformacoesContatos($nomeTabela, $matrizDeValores) {
+            return Connection::cadastrarInformacaoTabela($nomeTabela, $matrizDeValores);
         }
     }
-
-    ModelContatos::resgatarDadosContatos();

@@ -2,6 +2,15 @@
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
     $controllerContato = new ControllerContatos();
     
+    $dadosQuery = $controllerContato->cadastrarContato(
+        "contatos", 
+        [
+            "nomeContato"           =>  $_POST['cadastrarNome']       ,
+            "emailContato"          =>  $_POST['cadastrarEmail']      ,
+            "telefoneContato"       =>  $_POST['cadastrarContato']   ,
+            "sexoContato"           =>  $_POST['cadastrarSexo']       ,
+            "dataNascimentoContato" =>  $_POST['cadastrarNacsimento'] 
+        ]);
 ?>
 <section>
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
@@ -17,10 +26,10 @@
             <label for="cadastrarSexo">Sexo</label>
 
             <label for="cadastrarSexoMasculino">Masculino</label>
-            <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexoMasculino" value="M">
+            <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="M">
 
             <label for="cadastrarSexoFeminino">Feminino</label>
-            <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexoFeminino" value="F">
+            <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="F">
         </div>
         <div class="cadastrarContatolContainer">
             <label for="cadastrarContato">Contato</label>
