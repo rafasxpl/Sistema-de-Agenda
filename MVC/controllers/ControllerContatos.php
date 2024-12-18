@@ -7,7 +7,7 @@
             return ModelContatos::resgatarDadosContatos();
         }
 
-        public function cadastrarContato($nomeTabela, $matrizDeValores) {
-            return ModelContatos::cadastrarInformacoesContatos($nomeTabela, $matrizDeValores);
+        public function cadastrarContato($matrizDeValores, $tipoValores = null) {
+            return ModelContatos::cadastrarInformacoesContatos("contatos" ,$matrizDeValores, $tipoValores);
         }
     }

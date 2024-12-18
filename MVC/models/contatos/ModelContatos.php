@@ -7,7 +7,7 @@
             return Connection::resgatarDadosTabela("contatos");
         }
 
-        public static function cadastrarInformacoesContatos($nomeTabela, $matrizDeValores) {
-            return Connection::cadastrarInformacaoTabela($nomeTabela, $matrizDeValores);
+        public static function cadastrarInformacoesContatos($nomeTabela, $matrizDeValores, $tipoValores = null) {
+            return Connection::cadastrarInformacaoTabela($nomeTabela, $matrizDeValores, $tipoValores);
         }
     }

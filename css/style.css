@@ -14,12 +14,18 @@ ul li a {
     text-decoration: none;
 }
 
-/* main {
+ main {
     display: flex;
     justify-content: center;
-} */
+    flex-direction: row;
+} 
+
+button {
+    align-self: flex-start;
+}
 
 section {
     display: flex !important;
+    flex-direction: row;
     gap: 1em;
 }

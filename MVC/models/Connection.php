@@ -56,24 +56,41 @@
             return "Query SQL não informada";
         }
 
-        public static function cadastrarInformacaoTabela($nomeTabela = null, $matrizDeValores = null) {
+        public static function cadastrarInformacaoTabela($nomeTabela = null, $matrizDeValores = null, $tipoValores = null) {
+            if(!$nomeTabela || !$matrizDeValores) {
+                die("Nome da tabela e a matriz de valores devem ser fornecidos!");
+            }
+
             $pdo = self::conectar();
 
-            $sqlInsert = "INSERT INTO";
-            $nomeCampos = "";
-            $valoresCampos = "";
+            $sqlInsert     = "INSERT INTO";
+            $nomeCampos    = null;
+            $valoresCampos = null;
 
-            if($nomeTabela !== null && $matrizDeValores !== null) {
-                foreach ($matrizDeValores as $chave => $valor) {
-                    $valoresCampos .=  $valor . ",";
-                    $nomeCampos .=  $chave . ",";
+            foreach ($matrizDeValores as $chave => $valor) {
+                $valoresCampos .=   ":". $chave . ",";
+                $nomeCampos    .=  $chave . ",";     
+            }
+            
+            $nomeCampos    = trim($nomeCampos, ",");
+            $valoresCampos = trim($valoresCampos, ",");
+            
+            $stmt = $pdo->prepare(($sqlInsert . " " . $nomeTabela . " (". $nomeCampos .")" . " VALUES " . "(" . $valoresCampos . ")"));
+
+            if ($tipoValores) {
+                foreach ($matrizDeValores as $chaveValor => $valor) {
+                    $stmt->bindValue(":$chaveValor" ?? "", $valor, $tipoValores[$chaveValor] ?? PDO::PARAM_STR);
                 }
+            } else {
+                foreach ($matrizDeValores as $chaveValor => $valor) {
+                    $stmt->bindValue(":$chaveValor" ?? "", $valor);
+                }
+            }
 
-                $nomeCampos = trim($nomeCampos, ",");
-                $valoresCampos = trim($valoresCampos, ",");
-                // $stmt = $pdo->prepare($sqlInsert . " " . $nomeTabela . " (". $nomeCampos .") ". $matrizDeValores);
-                return ($sqlInsert . " " . $nomeTabela . " (". $nomeCampos .")" . " VALUES " . "(" . $valoresCampos . ")");
+            try {
+                $stmt->execute();
+            } catch(PDOException $e) {
+                die("Erro ao cadastrar dados: ". $e->getMessage());
             }
         }
     }
-    
