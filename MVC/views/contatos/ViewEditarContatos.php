@@ -4,7 +4,7 @@
     $id = $_GET['id'] ?? "";
     $querySql = "SELECT * FROM contatos WHERE idContato={$id}";
 
-    $informacoesContato = ControllerContatos::resgatarDadosQuery($querySql);
+    $informacoesContato = ControllerContatos::executarQuerySql($querySql);
     $informacoesContato = $informacoesContato[0] ?? [];
     
 ?>

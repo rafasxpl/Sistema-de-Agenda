@@ -31,5 +31,6 @@
             !array_key_exists($page, $routes) ? header('Location: 404/404.php') : require_once __DIR__ . $routes[$page];
         ?>
     </main>
+   
 </body>
 </html>

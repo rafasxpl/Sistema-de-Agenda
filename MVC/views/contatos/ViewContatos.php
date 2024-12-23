@@ -37,7 +37,7 @@
                         <a href="index.php?page=editarContatos&id=<?= $content['idContato']?>">Editar</a> 
                     </th>
                     <th>
-                        <a href="index.php?page=excluirContatos&id=<?= $content['idContato']?>">Excluir</a>
+                        <button class="excluirContatosButton" data-id="<?= $content['idContato'] ?>">Excluir</button>
                     </th>
                 </tr>
             <?php endforeach ?>
@@ -47,3 +47,20 @@
         <a href="index.php?page=adicionarContatos">Adicionar contato</a>
     </button>
 </section>
+<script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+<script>
+$(".excluirContatosButton").click(function() {
+        var contatoId = $(this).data("id");
+        $.ajax({
+            url: 'http://localhost:81/Sistema-de-Agenda/MVC/views/contatos/ViewExcluirContatos.php',
+            type: 'POST',
+            data: { id: contatoId }, // Envia o ID do contato para o servidor
+        });
+
+        location.reload();
+    });
+</script>
