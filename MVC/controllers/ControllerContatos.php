@@ -3,8 +3,8 @@
 
     class ControllerContatos {
         
-        public static function resgatarDadosContatos() : array {
-            return ModelContatos::resgatarDadosContatos();
+        public static function resgatarDadosContatos($chaveBusca = null) : array {
+            return ModelContatos::resgatarDadosContatos($chaveBusca);
         }
 
         public static function executarQuerySql($querySql) : array | string {
@@ -12,15 +12,15 @@
         }
 
         public static function atualizarInformacoesContatos($matrizDeValores = null, $id = null) {
-            return ModelContatos::atualizarInformacoesContatos("contatos", $matrizDeValores, $id);
+            return ModelContatos::atualizarInformacoesContatos($matrizDeValores, $id);
         }
 
         public static function excluirContato($id) {
-            return ModelContatos::excluirContato("contatos", $id);
+            return ModelContatos::excluirContato($id);
         }
 
         public static function cadastrarContato($matrizDeValores, $tipoValores = null) {
-            return ModelContatos::cadastrarInformacoesContatos("contatos" ,$matrizDeValores, $tipoValores);
+            return ModelContatos::cadastrarContato($matrizDeValores, $tipoValores);
         }
     }
 

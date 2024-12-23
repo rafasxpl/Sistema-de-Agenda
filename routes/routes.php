@@ -7,5 +7,6 @@
         "tarefas"           => "/MVC/views/ViewTarefas.php",
         "adicionarContatos" => "/MVC/views/contatos/ViewAdicionarContatos.php",
         "editarContatos"    => "/MVC/views/contatos/ViewEditarContatos.php",
-        "excluirContatos"   => "/MVC/views/contatos/ViewExcluirContatos.php"
+        "excluirContatos"   => "/MVC/views/contatos/ViewExcluirContatos.php",
+        "buscarContatos"    => "/MVC/views/contatos/ViewBuscarContatos.php"
     ];
