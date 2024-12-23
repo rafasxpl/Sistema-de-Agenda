@@ -12,6 +12,7 @@
                 <th>Telefone</th>
                 <th>Sexo</th>
                 <th>Nascimento</th>
+                <th colspan="2">Opções</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,12 @@
                     </th>
                     <th>
                         <?= $content['dataNascimentoContato']?>
+                    </th>
+                    <th>
+                        <a href="index.php?page=editarContatos&id=<?= $content['idContato']?>">Editar</a> 
+                    </th>
+                    <th>
+                        <a href="index.php?page=excluirContatos&id=<?= $content['idContato']?>">Excluir</a>
                     </th>
                 </tr>
             <?php endforeach ?>

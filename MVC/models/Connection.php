@@ -39,11 +39,9 @@
             }
 
             return "Nome da tabela não informado";
-
         }
 
-        
-        public static function resgatarDadosQuery($querySql) : array | string{
+        public static function executarQuerySql($querySql) : array | string{
             $pdo = self::conectar();
 
             if($querySql !== null) {
@@ -92,5 +90,36 @@
             } catch(PDOException $e) {
                 die("Erro ao cadastrar dados: ". $e->getMessage());
             }
+        }
+
+        public static function atualizarInformacaoTabela($nomeTabela = null, $matrizDeValores = null, $id) {
+            $pdo = self::conectar();
+
+            if(!$nomeTabela || !$matrizDeValores || !$id) {
+                die("Nome da tabela, a matriz de valores e o ID devem ser fornecidos!");
+            }
+
+            $sqlUpdate = "UPDATE $nomeTabela SET ";
+            $colunaValor = "";
+
+            foreach ($matrizDeValores as $chave => $valor) {
+                $colunaValor .= $chave . " = ". "'". $valor ."'" . ",";
+            }
+
+            $colunaValor = trim($colunaValor, ",");
+
+            $sqlUpdate .= $colunaValor . " WHERE idContato = $id";
+            $stmt = $pdo->prepare($sqlUpdate);
+            $stmt->execute();
+
+        }
+
+        public static function excluirInformacaoTabela($nomeTabela = null, $id = null) {
+            $pdo = self::conectar();
+            $sqlDelete = "DELETE FROM $nomeTabela WHERE idContato = $id";
+        
+            $stmt = $pdo->prepare($sqlDelete);
+            $stmt->execute();
+            return $sqlDelete;
         }
     }
