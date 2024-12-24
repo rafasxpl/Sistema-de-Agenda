@@ -3,7 +3,7 @@
 
     class ControllerContatos {
         
-        public static function resgatarDadosContatos($chaveBusca = null) : array {
+        public static function resgatarDadosContatos($chaveBusca) {
             return ModelContatos::resgatarDadosContatos($chaveBusca);
         }
 

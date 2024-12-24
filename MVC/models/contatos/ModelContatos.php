@@ -4,19 +4,12 @@
     class ModelContatos {
         private static string $nomeTabela = "contatos";
 
-        public static function resgatarDadosContatos($chaveBusca) : array {
+        public static function resgatarDadosContatos($chaveBusca) {
             $pdo = Connection::conectar();
-            if(!$chaveBusca) {
-                $stmt = $pdo->prepare("SELECT * FROM contatos");
-                $stmt->execute();
-    
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } 
 
             $sqlLike = "SELECT * FROM contatos WHERE nomeContato LIKE :chaveBusca";
 
             $stmt = $pdo->prepare($sqlLike);
-            // $stmt->bindParam(':chaveBusca', $chaveBusca);
             $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%");
             $stmt->execute();
 

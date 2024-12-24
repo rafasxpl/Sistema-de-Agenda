@@ -1,7 +1,7 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
 
-    $chaveBusca = $_GET['chaveBusca'] ?? "";
+    $chaveBusca = $_POST['chaveBusca'] ?? "";
 
     $dadosContato = ControllerContatos::resgatarDadosContatos($chaveBusca);
 ?>

@@ -1,14 +1,12 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
-    $controllerContato = new ControllerContatos();
-    $dadosContatos = $controllerContato->resgatarDadosContatos();
+    $dadosContatos = ControllerContatos::resgatarDadosContatos(null);
 ?>
 <section class="containerContatos">
-    <form action="index.php?page=buscarContatos" method="GET" class="formBuscaContatos">
+    <form action="index.php?page=buscarContatos" method="POST" class="formBuscaContatos">
         <input type="text" placeholder="Buscar contato" name="chaveBusca">
-        <button id="buscarContato">
-            <a href="index.php?page=buscarContatos">Buscar</a>
-        </button>
+        <button id="buscarContato" type="submit">Buscar</button>
+    </form>
     </div>
     <div class="exibirContatos">
         <table>
