@@ -7,8 +7,12 @@
             return ModelContatos::resgatarDadosContatos($chaveBusca);
         }
 
-        public static function executarQuerySql($querySql) : array | string {
+        public static function executarQuerySql($querySql) {
             return ModelContatos::executarQuerySql($querySql);
+        }
+
+        public static function resgatarQuantidadeContatos() {
+            return ModelContatos::resgatarQuantidadeContatos();
         }
 
         public static function atualizarInformacoesContatos($matrizDeValores = null, $id = null) {

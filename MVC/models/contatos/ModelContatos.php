@@ -2,13 +2,46 @@
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/Connection.php";
     
     class ModelContatos {
-        private static string $nomeTabela = "contatos";
+        private static string $nomeTabela        = "contatos";
+        private static int $limiteContatosPagina = 10;
+        private static int $quantidadePaginas    = 0;
+        private static int $paginaInicial        = 0;
+        private static int $paginaAtual         = 0;
+
+        // public static function get
+
+        public static function resgatarQuantidadeContatos() {
+            $pdo = Connection::conectar();
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM contatos");
+            $stmt->execute();
+
+            return $stmt->fetchColumn();
+        }
 
         public static function resgatarDadosContatos($chaveBusca) {
             $pdo = Connection::conectar();
 
+            
             if(empty($chaveBusca)) {
-                $stmt = $pdo->prepare("SELECT * FROM contatos");
+                if (!isset($_GET['idPagina']) || !is_numeric($_GET['idPagina']) || $_GET['idPagina'] < 1) {
+                    self::$paginaAtual = 1; // Página inicial como padrão
+                } else {
+                    self::$paginaAtual = (int) $_GET['idPagina'];
+                }
+                
+                $totalContatos = self::resgatarQuantidadeContatos();
+
+                self::$quantidadePaginas = ceil($totalContatos / self::$limiteContatosPagina);
+                self::$paginaInicial = (self::$paginaAtual - 1) * self::$limiteContatosPagina;
+
+                if (self::$paginaAtual > self::$quantidadePaginas) {
+                    self::$paginaAtual = self::$quantidadePaginas;
+                }
+
+                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit";
+                $stmt = $pdo->prepare($sqlSelectFrom);
+                $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
+                $stmt->bindValue(':limit', self::$limiteContatosPagina, PDO::PARAM_INT);
                 $stmt->execute();
 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -19,7 +52,7 @@
                 $stmt->execute();
 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            }
+            } 
 
             $sqlLike = "SELECT * FROM contatos WHERE nomeContato LIKE :chaveBusca";
 
@@ -30,7 +63,7 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public static function executarQuerySql($querySql) : array {
+        public static function executarQuerySql($querySql) {
             return Connection::executarQuerySql($querySql);
         }
 
