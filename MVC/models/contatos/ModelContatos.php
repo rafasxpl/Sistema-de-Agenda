@@ -7,6 +7,20 @@
         public static function resgatarDadosContatos($chaveBusca) {
             $pdo = Connection::conectar();
 
+            if(empty($chaveBusca)) {
+                $stmt = $pdo->prepare("SELECT * FROM contatos");
+                $stmt->execute();
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            } elseif(is_int($chaveBusca)) {
+                $stmt = $pdo->prepare("SELECT * FROM contatos WHERE idContato = :id");
+                $stmt->bindValue(':id', $chaveBusca, PDO::PARAM_INT);
+                $stmt->execute();
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+
             $sqlLike = "SELECT * FROM contatos WHERE nomeContato LIKE :chaveBusca";
 
             $stmt = $pdo->prepare($sqlLike);

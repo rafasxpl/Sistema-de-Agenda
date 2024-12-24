@@ -1,6 +1,10 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
     $dadosContatos = ControllerContatos::resgatarDadosContatos(null);
+
+    if(!ControllerContatos::resgatarDadosContatos(null)) {
+        ControllerContatos::executarQuerySql("TRUNCATE TABLE contatos");
+    }
 ?>
 <section class="containerContatos">
     <form action="index.php?page=buscarContatos" method="POST" class="formBuscaContatos">
@@ -12,6 +16,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Telefone</th>
@@ -23,6 +28,9 @@
             <tbody>
                 <?php foreach($dadosContatos as $content):?>
                     <tr>
+                        <th>
+                            <?= $content['idContato']?>
+                        </th>
                         <th>
                             <?= $content['nomeContato'] ?>
                         </th>

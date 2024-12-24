@@ -42,9 +42,10 @@ a {
 }
 
 .formBuscaContatos input,
-.formBuscaContatos button{
+.formBuscaContatos button {
     padding: 0.5em;
-    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 .exibirContatos {

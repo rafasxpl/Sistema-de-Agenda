@@ -2,6 +2,7 @@
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
 
     $chaveBusca = $_POST['chaveBusca'] ?? "";
+    $chaveBusca = preg_match("/[0-9]/", $chaveBusca) ? (int) $chaveBusca : (string) $chaveBusca;
 
     $dadosContato = ControllerContatos::resgatarDadosContatos($chaveBusca);
 ?>
@@ -9,6 +10,7 @@
 <table>
     <thead>
         <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>E-mail</th>
             <th>Telefone</th>
@@ -20,6 +22,9 @@
     <tbody>
         <?php foreach($dadosContato as $content):?>
             <tr>
+                <th>
+                    <?= $content['idContato']?>
+                </th>
                 <th>
                     <?= $content['nomeContato'] ?>
                 </th>
