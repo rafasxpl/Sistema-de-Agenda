@@ -1,14 +1,12 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
 
-    $id = $_GET['id'] ?? "";
-    $querySql = "SELECT * FROM contatos WHERE idContato={$id}";
+    $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
-    $informacoesContato = ControllerContatos::executarQuerySql($querySql);
-    $informacoesContato = $informacoesContato[0] ?? [];
-    
+    $informacoesContato = ControllerContatos::resgatarDadosContatos($id)[0];
+
 ?>
-<section>
+<section class="editContatoContainer">
     <form action="" method="POST">
         <div class="cadastrarNomeContainer">
             <label for="atualizarNome">Nome</label>
@@ -37,7 +35,7 @@
             <?= ($informacoesContato['sexoContato'] === "F") ? "checked" : ""; ?>
             >
         </div>
-        <div class="cadastrarContatolContainer">
+        <div class="cadastrarContatoContainer">
             <label for="atualizarContato">Contato</label>
             <input type="text" id="atualizarContato" name="atualizarContato"
             value="<?= $informacoesContato['telefoneContato'] ?>"
@@ -53,16 +51,17 @@
             <input type="submit" name="submit" value="Atualizar">
         </div>
     </form>
+    <div class="imagemUsuario">
+        <input type="file" name="imagemUsuario">
+        <button type="submit">Upload</button>
+    </div>
 </section>
-<pre>
-</pre>
 <?php
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
 
     if(isset($_POST['atualizarNascimento']) || isset($_POST['atualizarNome']) || isset($_POST['atualizarEmail']) || isset($_POST['atualizarSexo']) || isset($_POST['atualizarContato'])) {
-
         $dataNascimento = date_create($_POST['atualizarNascimento'] ?? null);
-        $dataFormatada  = date_format($dataNascimento, 'Y-m-d');
+        $dataNascimentoFormatada  = date_format($dataNascimento, 'Y-m-d');
 
         ControllerContatos::atualizarInformacoesContatos(
             [
@@ -70,7 +69,7 @@
                 "emailContato"          =>  $_POST['atualizarEmail']    ?? null,
                 "sexoContato"           =>  $_POST['atualizarSexo']     ?? null,
                 "telefoneContato"       =>  $_POST['atualizarContato']  ?? null,
-                "dataNascimentoContato" =>  $dataFormatada              ?? null,
+                "dataNascimentoContato" =>  $dataNascimentoFormatada    ?? null,
             ],
             $id
         );

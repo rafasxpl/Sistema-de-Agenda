@@ -1,16 +1,11 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
+    
     $dadosContatos = ControllerContatos::resgatarDadosContatos(null);
 
     if(!ControllerContatos::resgatarDadosContatos(null)) {
         ControllerContatos::executarQuerySql("TRUNCATE TABLE contatos");
     }
-
-    $quantidadeRegistroContatos = ControllerContatos::resgatarQuantidadeContatos();
-    $intervaloPaginas = 10;
-    $paginaAtual = isset($_GET['idPagina']) ? $_GET['idPagina'] : 1;
-
-    $quantidadePaginas = round($quantidadeRegistroContatos / $intervaloPaginas);
 ?>
 <section class="containerContatos">
     <form action="index.php?page=buscarContatos" method="POST" class="formBuscaContatos">
@@ -68,19 +63,22 @@
     </div>
     <div class="paginasContatos">
     <?php 
-        // Calcular total de páginas e o bloco atual
-        $blocoAtual = ceil($paginaAtual / $intervaloPaginas); // Define o bloco atual
-        $paginaInicio = (($blocoAtual - 1) * $intervaloPaginas) + 1; // Página inicial do bloco
-        $paginaFim = min($paginaInicio + $intervaloPaginas - 1, $quantidadePaginas); // Página final do bloco
+        $quantidadeRegistroContatos = ControllerContatos::resgatarQuantidadeContatos();
+        $intervaloPaginas           = ControllerContatos::getLimiteContatosPagina();
+        $paginaAtual                = ControllerContatos::getPaginaAtual();
+        $quantidadePaginas          = ControllerContatos::getQuantidadePaginas();
 
-        // Botão para o bloco anterior
+        $blocoAtual = ceil($paginaAtual / $intervaloPaginas); 
+        $paginaInicio = (($blocoAtual - 1) * $intervaloPaginas) + 1; 
+        $paginaFim = min($paginaInicio + $intervaloPaginas - 1, $quantidadePaginas); 
+
         if ($blocoAtual > 1): 
             $paginaAnterior = $paginaInicio - 1;
         ?>
+            <a class="paginaContato" href="index.php?page=contatos&idPagina=1">« Primeira Página</a>
             <a class="paginaContato" href="index.php?page=contatos&idPagina=<?= $paginaAnterior ?>">« Anterior</a>
         <?php endif; ?>
 
-        <!-- Links das páginas dentro do bloco atual -->
         <?php for ($i = $paginaInicio; $i <= $paginaFim; $i++): ?>
             <a class="paginaContato <?= $i == $paginaAtual ? 'paginaAtiva' : '' ?>" 
             href="index.php?page=contatos&idPagina=<?= $i ?>">
@@ -88,12 +86,11 @@
             </a>
         <?php endfor; ?>
 
-        <!-- Botão para o próximo bloco -->
         <?php if ($paginaFim < $quantidadePaginas): 
             $paginaProxima = $paginaFim + 1;
         ?>
             <a class="paginaContato" href="index.php?page=contatos&idPagina=<?= $paginaProxima ?>">Próximo »</a>
+            <a class="paginaContato" href="index.php?page=contatos&idPagina=<?= $quantidadePaginas ?>">UltimaPagina »</a>
         <?php endif; ?>
-</div>
-
+</div>  
 </section>

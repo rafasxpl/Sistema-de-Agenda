@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <section>
     <form action="" method="POST">
         <div class="cadastrarNomeContainer">
@@ -42,7 +41,7 @@
     if(isset($_POST['cadastrarNascimento']) || isset($_POST['cadastrarNome']) || isset($_POST['cadastrarEmail']) || isset($_POST['cadastrarSexo']) || isset($_POST['cadastrarContato'])) {
 
         $dataNascimento = date_create($_POST['cadastrarNascimento'] ?? null);
-        $dataFormatada  = date_format($dataNascimento, 'Y-m-d');
+        $dataNascimentoFormatada  = date_format($dataNascimento, 'Y-m-d');
 
         ControllerContatos::cadastrarContato( 
             [
@@ -50,7 +49,7 @@
                 "emailContato"          =>  $_POST['cadastrarEmail']    ?? null,
                 "sexoContato"           =>  $_POST['cadastrarSexo']     ?? null,
                 "telefoneContato"       =>  $_POST['cadastrarContato']  ?? null,
-                "dataNascimentoContato" =>  $dataFormatada              ?? null,
+                "dataNascimentoContato" =>  $dataNascimentoFormatada    ?? null,
             ],  
             [
                 "nomeContatoTipo"           => PDO::PARAM_STR,

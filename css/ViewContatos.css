@@ -4,10 +4,13 @@ table, tr, th, td {
     border-radius: 3em;
 }
 
+table {
+    min-width: 100%;
+}
 th, td {
     padding: 0.5em;
-}
 
+}
 a {
     text-decoration: none;
 }
@@ -66,4 +69,24 @@ a {
 .paginaContato {
     background-color: rgb(133, 128, 128);
     padding: 0.5em;
+} 
+
+.exibirContatos {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.containerContatos {
+    width: 100%;
+}
+
+.containerContatos form {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.exibirContatos button {
+    min-width: 25%;
 }

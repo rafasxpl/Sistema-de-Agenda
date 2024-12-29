@@ -25,7 +25,8 @@
     <main>
         <?php
             require_once "routes/routes.php";
-            $page = $_GET['page'] ?? "";
+
+            $page = isset($_GET['page']) ? $_GET['page'] : null;
             $page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
             
             !array_key_exists($page, $routes) ? header('Location: 404/404.php') : require_once __DIR__ . $routes[$page];
@@ -36,6 +37,6 @@
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous">
     </script>
-<script src="js/excluirContato.js"></script>
+    <script src="js/excluirContato.js"></script>
 </body>
 </html>

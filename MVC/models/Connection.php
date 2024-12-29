@@ -18,7 +18,7 @@
         public static function conectar() : PDO {
             if(self::$conn === null) {
                 try {
-                    self::$conn = new PDO("mysql:" . self::gerarUrl(), self::getUserName(), self::getPassword());
+                    self::$conn = new PDO(self::gerarUrl(), self::getUserName(), self::getPassword());
                     self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 } catch(PDOException $e) {
                     die("Erro de conexão" . $e->getMessage());
@@ -41,7 +41,7 @@
             return "Nome da tabela não informado";
         }
 
-        public static function executarQuerySql($querySql) : array | string{
+        public static function executarQuerySql($querySql) : array {
             $pdo = self::conectar();
 
             if($querySql !== null) {

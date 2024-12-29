@@ -3,8 +3,9 @@ $(".excluirContatosButton").click(function() {
     $.ajax({
         url: 'http://localhost:81/Sistema-de-Agenda/MVC/views/contatos/ViewExcluirContatos.php',
         type: 'POST',
-        data: { id: contatoId }, // Envia o ID do contato para o servidor
+        data: { id: contatoId },
     });
 
+    location.reload();
     location.reload();
 });

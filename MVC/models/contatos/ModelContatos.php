@@ -6,32 +6,43 @@
         private static int $limiteContatosPagina = 10;
         private static int $quantidadePaginas    = 0;
         private static int $paginaInicial        = 0;
-        private static int $paginaAtual         = 0;
+        private static int $paginaAtual          = 0;
+        private static int $totalContatos        = 0;
 
-        // public static function get
-
-        public static function resgatarQuantidadeContatos() {
-            $pdo = Connection::conectar();
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM contatos");
-            $stmt->execute();
-
-            return $stmt->fetchColumn();
+        public static function getLimiteContatosPagina() : int {
+            return self::$limiteContatosPagina;
         }
 
-        public static function resgatarDadosContatos($chaveBusca) {
+        public static function getPaginaAtual() : int {
+            return (!isset($_GET['idPagina']) || !is_numeric($_GET['idPagina']) || $_GET['idPagina'] < 1) ? 1 : (int) $_GET['idPagina'];
+        }
+
+        public static function getQuantidadePaginas() : int {
+            return round(self::resgatarQuantidadeContatos() / self::$limiteContatosPagina);
+        }
+
+        public static function resgatarQuantidadeContatos() : int {
             $pdo = Connection::conectar();
 
-            
-            if(empty($chaveBusca)) {
-                if (!isset($_GET['idPagina']) || !is_numeric($_GET['idPagina']) || $_GET['idPagina'] < 1) {
-                    self::$paginaAtual = 1; // Página inicial como padrão
-                } else {
-                    self::$paginaAtual = (int) $_GET['idPagina'];
-                }
-                
-                $totalContatos = self::resgatarQuantidadeContatos();
+            $sqlSelectFromAll = "SELECT COUNT(*) FROM " . self::$nomeTabela;
+            $stmt = $pdo->prepare($sqlSelectFromAll);
 
-                self::$quantidadePaginas = ceil($totalContatos / self::$limiteContatosPagina);
+            try {
+                $stmt->execute();
+                return $stmt->fetchColumn();
+            } catch(PDOException $e) {
+                throw new RuntimeException("Erro ao buscar quantidade de contatos: " . $e->getMessage());
+            }
+        }
+
+        public static function resgatarDadosContatos($chaveBusca) : array {
+            $pdo = Connection::conectar();
+
+            if(empty($chaveBusca)) {
+                self::$paginaAtual   = self::getPaginaAtual();
+                self::$totalContatos = self::resgatarQuantidadeContatos();
+                
+                self::$quantidadePaginas = ceil(self::$totalContatos / self::$limiteContatosPagina);
                 self::$paginaInicial = (self::$paginaAtual - 1) * self::$limiteContatosPagina;
 
                 if (self::$paginaAtual > self::$quantidadePaginas) {
@@ -42,98 +53,121 @@
                 $stmt = $pdo->prepare($sqlSelectFrom);
                 $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
                 $stmt->bindValue(':limit', self::$limiteContatosPagina, PDO::PARAM_INT);
-                $stmt->execute();
 
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                try {
+                    $stmt->execute();
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    throw new RuntimeException("Erro ao buscar contatos: " . $e->getMessage());
+                }
 
             } elseif(is_int($chaveBusca)) {
                 $stmt = $pdo->prepare("SELECT * FROM contatos WHERE idContato = :id");
                 $stmt->bindValue(':id', $chaveBusca, PDO::PARAM_INT);
-                $stmt->execute();
 
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                try {
+                    $stmt->execute();
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch(PDOException $e) {
+                    throw new RuntimeException("Erro ao buscar contato: " . $e->getMessage());
+                }
             } 
 
             $sqlLike = "SELECT * FROM contatos WHERE nomeContato LIKE :chaveBusca";
 
             $stmt = $pdo->prepare($sqlLike);
             $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%");
-            $stmt->execute();
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            try {
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new RuntimeException("Erro ao buscar contatos: " . $e->getMessage());
+            }
         }
 
-        public static function executarQuerySql($querySql) {
+        public static function executarQuerySql($querySql) : array {
             return Connection::executarQuerySql($querySql);
         }
 
-        public static function atualizarInformacoesContatos($matrizDeValores, $id) {
+        public static function atualizarInformacoesContatos($matrizDeValores, $id) : void {
+            if (!$matrizDeValores || !$id || !is_numeric($id)) {
+            throw new InvalidArgumentException("A matriz de valores e um ID válido devem ser fornecidos!");
+            }
+
             $pdo = Connection::conectar();
 
-            if(!$matrizDeValores || !$id) {
-                die("Nome da tabela, a matriz de valores e o ID devem ser fornecidos!");
-            }
-
-            $sqlUpdate = "UPDATE contatos SET ";
-            $colunaValor = "";
+            $sqlUpdate = "UPDATE " . self::$nomeTabela . " SET ";
+            $colunaValor = [];
 
             foreach ($matrizDeValores as $chave => $valor) {
-                $colunaValor .= $chave . " = ". "'". $valor ."'" . ",";
+            $colunaValor[] = "$chave = :$chave";
             }
 
-            $colunaValor = trim($colunaValor, ",");
-            $sqlUpdate .= $colunaValor . " WHERE idContato = :id";
+            $sqlUpdate .= implode(", ", $colunaValor) . " WHERE idContato = :id";
             $stmt = $pdo->prepare($sqlUpdate);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-            $stmt->execute();
+            foreach ($matrizDeValores as $chave => $valor) {
+                $stmt->bindValue(":$chave", $valor, PDO::PARAM_STR);
+            }
+
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                throw new RuntimeException("Erro ao atualizar contato: " . $e->getMessage());
+            }
         }
 
-        public static function excluirContato($id) {
+        public static function excluirContato($id) : void {
+            if (!$id || !is_numeric($id)) {
+                throw new InvalidArgumentException("ID inválido fornecido!");
+            }
+
             $pdo = Connection::conectar();
             $sqlDelete = "DELETE FROM contatos WHERE idContato = :id";
         
             $stmt = $pdo->prepare($sqlDelete);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            return $sqlDelete;
+
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                throw new RuntimeException("Erro ao excluir contato: " . $e->getMessage());
+            }
+
         }
 
-        public static function cadastrarContato($matrizDeValores, $tipoValores = null) {
+        public static function cadastrarContato($matrizDeValores, $tipoValores = null) : void {
             if(!$matrizDeValores) {
-                die("Nome da tabela e a matriz de valores devem ser fornecidos!");
+                throw new InvalidArgumentException("A matriz de valores deve ser fornecida!");
             }
 
             $pdo = Connection::conectar();
 
-            $sqlInsert     = "INSERT INTO";
-            $nomeCampos    = null;
-            $valoresCampos = null;
+            $sqlInsert     = "INSERT INTO " . self::$nomeTabela;
+            $nomeCampos    = [];
+            $valoresCampos = [];
 
             foreach ($matrizDeValores as $chave => $valor) {
-                $valoresCampos .=   ":". $chave . ",";
-                $nomeCampos    .=  $chave . ",";     
+                $nomeCampos[]    = $chave;
+                $valoresCampos[] = ":$chave";
             }
             
-            $nomeCampos    = trim($nomeCampos, ",");
-            $valoresCampos = trim($valoresCampos, ",");
+            $nomeCamposStr    = implode(", ", $nomeCampos);
+            $valoresCamposStr = implode(", ", $valoresCampos);
             
-            $stmt = $pdo->prepare(($sqlInsert . " " . self::$nomeTabela . " (". $nomeCampos .")" . " VALUES " . "(" . $valoresCampos . ")"));
+            $stmt = $pdo->prepare("$sqlInsert ($nomeCamposStr) VALUES ($valoresCamposStr)");
 
-            if ($tipoValores) {
-                foreach ($matrizDeValores as $chaveValor => $valor) {
-                    $stmt->bindValue(":$chaveValor" ?? "", $valor, $tipoValores[$chaveValor] ?? PDO::PARAM_STR);
-                }
-            } else {
-                foreach ($matrizDeValores as $chaveValor => $valor) {
-                    $stmt->bindValue(":$chaveValor" ?? "", $valor);
-                }
+            foreach ($matrizDeValores as $chaveValor => $valor) {
+                $stmt->bindValue(":$chaveValor", $valor, $tipoValores[$chaveValor] ?? PDO::PARAM_STR);
             }
 
             try {
                 $stmt->execute();
             } catch(PDOException $e) {
-                die("Erro ao cadastrar dados: ". $e->getMessage());
+                throw new RuntimeException("Erro ao cadastrar dados: ". $e->getMessage());
             }
         }
     }
