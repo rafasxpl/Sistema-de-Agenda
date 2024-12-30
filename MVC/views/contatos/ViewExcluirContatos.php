@@ -1,6 +1,8 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
 
-    $id = isset($_POST['id']) && !empty($_POST['id']) ? $_POST['id'] : null;
+    if(isset($_POST['id'])) {
+        $id = $_POST['id'] ?? "";
+    }
     
     ControllerContatos::excluirContato($id);

@@ -39,6 +39,8 @@
         public static function getQuantidadePaginas()                              : int {
             return ModelContatos::getQuantidadePaginas();
         }
+
+        public static function cadastrarImagemContato($nomeImagem, $id)            : void {
+            ModelContatos::cadastrarImagemContato($nomeImagem, $id);
+        }
     }
-
-

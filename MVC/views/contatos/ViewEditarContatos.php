@@ -4,6 +4,10 @@
     $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
     $informacoesContato = ControllerContatos::resgatarDadosContatos($id)[0];
+    $imagemUsuario = "uploads/images/";
+    $imagemUsuario = $informacoesContato['fotoContato'] === NULL ? "defaultUser.jpg" : $informacoesContato['fotoContato'];
+
+    $nomeFoto = file_exists("uploads/images/" . $informacoesContato['fotoContato']) ? $informacoesContato['fotoContato'] : "defaultUserImage/defaultUser.jpg";
 
 ?>
 <section class="editContatoContainer">
@@ -52,8 +56,11 @@
         </div>
     </form>
     <div class="imagemUsuario">
-        <input type="file" name="imagemUsuario">
-        <button type="submit">Upload</button>
+        <img width="50%" src="uploads/<?= $imagemUsuario?>" alt="">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="file" name="imagemUsuario">
+            <input type="submit" value="Upload">
+        </form>
     </div>
 </section>
 <?php
@@ -73,5 +80,23 @@
             ],
             $id
         );
+    }
+
+    if(!empty($_FILES['imagemUsuario'])) {
+        $diretorioDestino = "uploads/";
+
+        $arquivoImagem    = $_FILES['imagemUsuario']['name'];
+        $arquivoImagem = str_replace(" ", "-", $arquivoImagem);
+
+        $nomeTemporario   = $_FILES['imagemUsuario']['tmp_name'];
+        $destinoArquivo   = $diretorioDestino . $arquivoImagem;
+        
+        if (file_exists($destinoArquivo)) {
+            throw new RuntimeException("Arquivo já existe");    
+        } else {
+            move_uploaded_file($nomeTemporario,$destinoArquivo);
+            ControllerContatos::cadastrarImagemContato($arquivoImagem, $id, false);
+            header("Refresh: 0");
+        }
     }
 ?>

@@ -170,4 +170,23 @@
                 throw new RuntimeException("Erro ao cadastrar dados: ". $e->getMessage());
             }
         }
+
+        public static function cadastrarImagemContato($nomeImagem, $id) : void {
+            if(!$nomeImagem || !$id || !is_numeric($id)) {
+                throw new InvalidArgumentException("O nome da imagem e um ID válido devem ser fornecidos!");
+            }
+
+            $pdo = Connection::conectar();
+
+            $sqlInsertImage = "UPDATE " . self::$nomeTabela . " SET fotoContato = :nomeImagem WHERE idContato = :idContato";
+            $stmt = $pdo->prepare($sqlInsertImage);
+            $stmt->bindValue(':nomeImagem',$nomeImagem, PDO::PARAM_STR);
+            $stmt->bindValue(':idContato', (int) $id, PDO::PARAM_INT);
+
+            try {
+                $stmt->execute();
+            } catch(PDOException $e) {
+                throw new RuntimeException("Erro ao cadastrar imagem: ". $e->getMessage());
+            }
+        }
     }
