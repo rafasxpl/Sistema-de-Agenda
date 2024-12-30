@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/Sistema-de-Agenda/css/style.css?v=1.0">
     <link rel="stylesheet" href="/Sistema-de-Agenda/css/ViewContatos.css?v=1.0">
     <link rel="stylesheet" href="/Sistema-de-Agenda/css/ViewAdicionarContatos.css?v=1.0">
+    <link rel="stylesheet" href="/Sistema-de-Agenda/css/ViewAdicionarTarefas.css?v=1.0">
     <title>Agenda</title>
 </head>
 <body>

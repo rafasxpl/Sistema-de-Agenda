@@ -15,7 +15,7 @@ a {
     text-decoration: none;
 }
 
-.adicionarContatosButton,
+.adicionarTarefasButton,
 .adicionarTarefasButton {
     background-color: rgb(117, 255, 99);
     border-radius: 5%;
@@ -24,43 +24,43 @@ a {
     cursor: pointer;
 }
 
-.adicionarContatosButton:hover,
+.adicionarTarefasButton:hover,
 .adicionarTarefasButton:hover {
     background-color: rgb(51, 255, 0);
 }
 
-.adicionarContatosButton a ,
+.adicionarTarefasButton a ,
 .adicionarTarefasButton a{
     color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
-.containerContatos {
+.containerTarefas {
     width: 60%;
     display: flex;
-    flex-direction: column !important;
+    flex-direction: row-reverse !important;
     gap: 1em;
 }
 
-.formBuscaContatos {
+.formBuscaTarefas {
     display: flex;
     flex-direction: column;
     gap: 0.5em; 
 }
 
-.formBuscaContatos input,
-.formBuscaContatos button {
+.formBuscaTarefas input,
+.formBuscaTarefas button {
     padding: 0.5em;
     max-width: 100%;
     min-width: 100%;
 }
 
-.exibirContatos {
+.exibirTarefas {
     display: flex;  
     gap:1em 
 }
 
-.paginasContatos {
+.paginasTarefas {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -69,27 +69,27 @@ a {
     font-size: 1.3em;
 }
 
-.paginaContato {
+.paginaTarefa {
     background-color: rgb(133, 128, 128);
     padding: 0.5em;
 } 
 
-.exibirContatos {
+.exibirTarefas {
     max-width: 100%;
     margin: 0 auto;
 }
 
-.containerContatos {
+.containerTarefas {
     width: 100%;
 }
 
-.containerContatos form {
+.containerTarefas form {
     width: 50%;
     margin: 0 auto;
     display: flex;
     align-items: center;
 }
 
-.exibirContatos button {
+.exibirTarefas button {
     min-width: 25%;
 }
