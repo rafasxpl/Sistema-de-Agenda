@@ -10,58 +10,77 @@
     $nomeFoto = file_exists("uploads/images/" . $informacoesContato['fotoContato']) ? $informacoesContato['fotoContato'] : "defaultUserImage/defaultUser.jpg";
 
 ?>
-<section class="editContatoContainer">
-    <form action="" method="POST">
-        <div class="cadastrarNomeContainer">
-            <label for="atualizarNome">Nome</label>
-            <input type="text" id="atualizarNome" name="atualizarNome" 
-            value="<?= $informacoesContato['nomeContato'] ?? ""; ?>" 
-            >
+<section class="w-100 h-70 d-flex justify-content-between  bg-secondary">
+    <form class="d-flex flex-column align-items-center gap-4 w-50 mt-3" action="" method="POST">
+        <div class="cadastrarNomeContainer w-75">
+            <label class="form-label" for="cadastrarNome">Nome</label>
+            <input class="form-control" type="text" id="cadastrarNome" name="cadastrarNome" placeholder="Novo nome aqui" value="<?= $informacoesContato['nomeContato'] ?>">
         </div>
-        <div class="cadastrarEmailContainer">
-            <label for="atualizarEmail">Email</label>
-            <input type="email" id="atualizarEmail" name="atualizarEmail" 
-            value="<?= $informacoesContato['emailContato'] ?? ""; ?>"
-            >
+        <div class="w-75">
+            <label class="form-label" for="cadastrarEmail">Email</label>
+            <div class="input-group">
+                <span class="form-label input-group-text my-0" for="cadastrarEmail">
+                    <i class="fa-solid fa-envelope"></i>
+                </span>
+                <input class="form-control" type="email" id="cadastrarEmail" name="cadastrarEmail" placeholder="E-mail" value="<?= $informacoesContato['emailContato'] ?>">
+            </div>
         </div>
-        <div class="cadastrarSexoContainer">
-            <label id="labelSexo">Sexo</label>
-
-            <label for="atualizarSexoMasculino">Masculino</label>
-            <input type="radio" id="atualizarSexoMasculino" name="atualizarSexo" 
-            value="M"
-            <?= ($informacoesContato['sexoContato'] === "M") ? "checked" : ""; ?>
-            >
-
-            <label for="cadastrarSexoFeminino">Feminino</label>
-            <input type="radio" id="atualizarSexoFeminino" name="atualizarSexo" 
-            value="F"
-            <?= ($informacoesContato['sexoContato'] === "F") ? "checked" : ""; ?>
-            >
+        <div class="w-75">
+            <label class="form-label" for="containerInputs">Sexo</label>
+            <div id="containerInputs" class="input-group">
+                <span class="form-label input-group-text my-0">
+                    <i class="fa-solid fa-venus-mars"></i>
+                </span>
+                <div class="form-control d-flex justify-content-around align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="form-label my-0 fs-3" for="cadastrarSexoMasculino">
+                            <i class="fa-solid fa-person"></i>
+                        </span>
+                        <label for="cadastrarSexoMasculino">masculino</label>
+                        <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="M" 
+                        <?= $informacoesContato['sexoContato'] === "M" ? 'checked' : null ?>>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="form-label my-0 fs-3" for="cadastrarSexoFeminino">
+                            <i class="fa-solid fa-person-dress"></i>
+                        </span>
+                        <label for="cadastrarSexoFeminino">feminino</label>
+                        <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="F"  
+                        <?= $informacoesContato['sexoContato'] === "M" ? 'checked' : null ?>>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="cadastrarContatoContainer">
-            <label for="atualizarContato">Contato</label>
-            <input type="text" id="atualizarContato" name="atualizarContato"
-            value="<?= $informacoesContato['telefoneContato'] ?>"
-            >
+        <div class="cadastrarContatolContainer w-75">
+            <label class="form-label" for="cadastrarContato">Contato</label>
+            <div class="input-group">
+                <span class="form-label input-group-text my-0" for="cadastrarContato">
+                    <i class="fa-solid fa-phone"></i>
+                </span>
+                <input class="form-control" type="text" id="cadastrarContato" name="cadastrarContato" placeholder="(xx) xxxxxxxxx"
+                value="<?= $informacoesContato['telefoneContato'] ?>">
+            </div>
         </div>
-        <div class="cadastrarNascimentolContainer">
-            <label for="atualizarNascimento">Data de nascimento</label>
-            <input type="date" id="atualizarNascimento" name="atualizarNascimento"
-            value="<?= $informacoesContato['dataNascimentoContato'] ?>"
-            >
+        <div class="cadastrarNacsimentolContainer w-75">
+            <label class="form-label" for="cadastrarNacsimento">Data de Nascimento</label>
+            <div class="input-group">
+                <span class="form-label input-group-text my-0" for="cadastrarNacsimento">
+                    <i class="fa-solid fa-calendar"></i>
+                </span>
+                <input class="form-control" type="date" id="cadastrarNacsimento" name="cadastrarNascimento" value="<?= $informacoesContato['dataNascimentoContato'] ?>">
+            </div>
         </div>
-        <div>
-            <input type="submit" name="submit" value="Atualizar">
+        <div class="w-75">
+            <input class="btn btn-success w-100" type="submit" name="submit" value="Cadastrar">
         </div>
     </form>
-    <div class="imagemUsuario">
+    <div class="imagemUsuario mt-3 align-self-center">
         <img width="50%" src="uploads/<?= $imagemUsuario?>" alt="">
         <form action="" method="post" enctype="multipart/form-data">
             <input type="file" name="imagemUsuario">
             <input type="submit" value="Upload">
         </form>
-    </div>
+        </div>
 </section>
 <?php
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";

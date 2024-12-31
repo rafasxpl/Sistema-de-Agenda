@@ -3,7 +3,7 @@
     
     class ModelContatos {
         private static string $nomeTabela        = "contatos";
-        private static int $limiteContatosPagina = 10;
+        private static int $limiteContatosPagina = 8;
         private static int $quantidadePaginas    = 0;
         private static int $paginaInicial        = 0;
         private static int $paginaAtual          = 0;
@@ -49,7 +49,7 @@
             }
 
             $sqlSelectFrom = empty($chaveBusca) ? "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit" : "SELECT * FROM " . self::$nomeTabela . " WHERE nomeContato LIKE :chaveBusca LIMIT :offset, :limit";
-            
+
             $stmt = $pdo->prepare($sqlSelectFrom);
             $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
             $stmt->bindValue(':limit', self::$limiteContatosPagina, PDO::PARAM_INT);
