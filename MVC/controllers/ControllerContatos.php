@@ -1,5 +1,5 @@
 <?php 
-    require_once "MVC/models/contatos/ModelContatos.php";
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/contatos/ModelContatos.php";
 
     class ControllerContatos {
         

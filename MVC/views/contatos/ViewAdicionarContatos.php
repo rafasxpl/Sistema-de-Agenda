@@ -1,37 +1,62 @@
-<section>
-    <form action="" method="POST">
-        <div class="cadastrarNomeContainer">
-            <label for="cadastrarNome">Nome</label>
-            <input type="text" id="cadastrarNome" name="cadastrarNome" placeholder="Seu nome aqui">
+<section class="w-100 h-100 d-flex justify-content-center bg-secondary">
+    <form class="d-flex flex-column align-items-center gap-4 w-50 mt-3" action="" method="POST">
+        <div class="cadastrarNomeContainer w-75">
+            <label class="form-label" for="cadastrarNome">Nome</label>
+            <input class="form-control" type="text" id="cadastrarNome" name="cadastrarNome" placeholder="Seu nome aqui">
         </div>
-        <div class="cadastrarEmailContainer">
-            <label for="cadastrarEmail">Email</label>
-            <input type="email" id="cadastrarEmail" name="cadastrarEmail" placeholder="E-mail">
+        <div class="w-75">
+            <label class="form-label" for="cadastrarEmail">Email</label>
+            <div class="input-group">
+                <span class="form-label input-group-text my-0" for="cadastrarEmail">
+                    <i class="fa-solid fa-envelope"></i>
+                </span>
+                <input class="form-control" type="email" id="cadastrarEmail" name="cadastrarEmail" placeholder="E-mail">
+            </div>
         </div>
-        <div class="cadastrarSexoContainer">
-            <label id="labelSexo">Sexo</label>
-
-            <label for="cadastrarSexoMasculino">Masculino</label>
-            <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="M">
-
-            <label for="cadastrarSexoFeminino">Feminino</label>
-            <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="F">
+        <div class="w-75">
+            <label class="form-label" for="containerInputs">Sexo</label>
+            <div id="containerInputs" class="input-group">
+                <span class="form-label input-group-text my-0">
+                    <i class="fa-solid fa-venus-mars"></i>
+                </span>
+                <div class="form-control d-flex justify-content-around align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="form-label my-0 fs-3" for="cadastrarSexoMasculino">
+                            <i class="fa-solid fa-person"></i>
+                        </span>
+                        <label for="cadastrarSexoMasculino">masculino</label>
+                        <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="M">
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="form-label my-0 fs-3" for="cadastrarSexoFeminino">
+                            <i class="fa-solid fa-person-dress"></i>
+                        </span>
+                        <label for="cadastrarSexoFeminino">feminino</label>
+                        <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="F">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="cadastrarContatolContainer">
-            <label for="cadastrarContato">Contato</label>
-            <input type="text" id="cadastrarContato" name="cadastrarContato" placeholder="(xx) xxxxxxxxx">
+        <div class="cadastrarContatolContainer w-75">
+            <label class="form-label" for="cadastrarContato">Contato</label>
+            <div class="input-group">
+                <span class="form-label input-group-text my-0" for="cadastrarContato">
+                    <i class="fa-solid fa-phone"></i>
+                </span>
+                <input class="form-control" type="text" id="cadastrarContato" name="cadastrarContato" placeholder="(xx) xxxxxxxxx">
+            </div>
         </div>
-        <div class="cadastrarNacsimentolContainer">
-            <label for="cadastrarNacsimento">Data de nascimento</label>
-            <input type="date" id="cadastrarNacsimento" name="cadastrarNascimento">
+        <div class="cadastrarNacsimentolContainer w-75">
+            <label class="form-label" for="cadastrarNacsimento">Data de Nascimento</label>
+            <div class="input-group">
+                <span class="form-label input-group-text my-0" for="cadastrarNacsimento">
+                    <i class="fa-solid fa-calendar"></i>
+                </span>
+                <input class="form-control" type="date" id="cadastrarNacsimento" name="cadastrarNascimento">
+            </div>
         </div>
-        <div class="cadastrarFavoritoContainer">
-            <label for="cadastrarFavorito">Favorito</label>
-            <input type="number" id="cadastrarFavorito" name="cadastrarFavorito">
-        </div>
-        <div>
-            <input type="submit" name="submit" value="Cadastrar">
-            <input type="reset" value="Limpar">
+        <div class="w-75">
+            <input class="btn btn-success w-100" type="submit" name="submit" value="Cadastrar">
         </div>
     </form>
 </section>

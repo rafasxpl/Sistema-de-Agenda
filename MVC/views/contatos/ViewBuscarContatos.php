@@ -6,45 +6,45 @@
 
     $dadosContato = ControllerContatos::resgatarDadosContatos($chaveBusca);
 ?>
-<section>
-<table>
+<section class="w-100 d-flex flex-column align-items-center mt-5">
+<table class="table table-striped w-75">
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>Sexo</th>
-            <th>Nascimento</th>
-            <th colspan="2">Opções</th>
+        <tr class="table-row">
+            <th class="table-cell align-middle text-center">ID</th>
+            <th class="table-cell align-middle text-center">Nome</th>
+            <th class="table-cell align-middle text-center">E-mail</th>
+            <th class="table-cell align-middle text-center">Telefone</th>
+            <th class="table-cell align-middle text-center">Sexo</th>
+            <th class="table-cell align-middle text-center">Nascimento</th>
+            <th class="table-cell align-middle text-center" colspan="2">Opções</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach($dadosContato as $content):?>
-            <tr>
-                <th>
+            <tr class="table-row">
+                <th class="table-cell align-middle text-center">
                     <?= $content['idContato']?>
                 </th>
-                <th>
+                <th class="table-cell align-middle text-center">
                     <?= $content['nomeContato'] ?>
                 </th>
-                <th>
+                <th class="table-cell align-middle text-center">
                     <?= $content['emailContato'] ?>
                 </th>
-                <th>
+                <th class="table-cell align-middle text-center">
                     <?= $content['telefoneContato'] ?>
                 </th>
-                <th>
+                <th class="table-cell align-middle text-center">
                     <?= $content['sexoContato'] ?>
                 </th>
-                <th>
+                <th class="table-cell align-middle text-center">
                     <?= $content['dataNascimentoContato']?>
                 </th>
-                <th>
+                <th class="table-cell align-middle text-center">
                     <a href="index.php?page=editarContatos&id=<?= $content['idContato']?>">Editar</a>
                 </th>
-                <th>
-                    <button class="excluirContatosButton" data-id="<?= $content['idContato'] ?>">Excluir</button>
+                <th class="table-cell align-middle text-center">
+                    <button class="excluirContatosButton excluirContatosButton btn btn-danger" data-id="<?= $content['idContato'] ?>">Excluir</button>
                 </th>
             </tr>
         <?php endforeach ?>
