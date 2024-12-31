@@ -38,7 +38,7 @@
                         </span>
                         <label for="cadastrarSexoMasculino">masculino</label>
                         <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="M" 
-                        <?= $informacoesContato['sexoContato'] === "M" ? 'checked' : null ?>>
+                        <?= $informacoesContato['sexoContato'] === "M" ? 'checked' : "" ?>>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <span class="form-label my-0 fs-3" for="cadastrarSexoFeminino">
@@ -46,7 +46,7 @@
                         </span>
                         <label for="cadastrarSexoFeminino">feminino</label>
                         <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="F"  
-                        <?= $informacoesContato['sexoContato'] === "M" ? 'checked' : null ?>>
+                        <?= $informacoesContato['sexoContato'] === "F" ? 'checked' : "" ?>>
                     </div>
                 </div>
             </div>
@@ -74,13 +74,25 @@
             <input class="btn btn-success w-100" type="submit" name="submit" value="Cadastrar">
         </div>
     </form>
-    <div class="imagemUsuario mt-3 align-self-center">
-        <img width="50%" src="uploads/<?= $imagemUsuario?>" alt="">
-        <form action="" method="post" enctype="multipart/form-data">
-            <input type="file" name="imagemUsuario">
-            <input type="submit" value="Upload">
-        </form>
+    <div class="imagemUsuario mt-3 d-flex flex-column justify-content-center align-items-center w-50">
+        <img width="50%" height="auto" src="uploads/<?= $imagemUsuario?>" alt="">
+        <div class="input-group w-50">
+            <span class="input-group-text">
+                <i class="fa-solid fa-camera"></i>
+            </span>
+            <button id="btn-foto-usuario" class="btn btn-primary form-control" type="button">Alterar foto</button>
         </div>
+        <form id="form-alterar-foto" class="mt-3" action="" method="post" enctype="multipart/form-data" style="display: none;">
+            <div class="input-group w-auto">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-camera"></i>
+                </span>
+                <input class="form-control w-auto d-inline-block" type="file" name="imagemUsuario">
+            </div>
+            <input id="btn-submit-foto" class="btn btn-success w-100 mt-3" type="submit" value="Upload">
+        </form>
+    </div>
+
 </section>
 <?php
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
@@ -115,7 +127,7 @@
         } else {
             move_uploaded_file($nomeTemporario,$destinoArquivo);
             ControllerContatos::cadastrarImagemContato($arquivoImagem, $id, false);
-            header("Refresh: 0");
+            echo '<script>location.reload();</script>';
         }
     }
 ?>
