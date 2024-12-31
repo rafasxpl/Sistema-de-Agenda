@@ -6,8 +6,14 @@
 
     $dadosContato = ControllerContatos::resgatarDadosContatos($chaveBusca);
 ?>
-<section class="w-100 d-flex flex-column align-items-center mt-5">
-<table class="table table-striped w-75">
+<section class="w-100 d-flex flex-column align-items-center pt-3">
+    <header class="w-75 d-flex align-items-center gap-3">
+        <span class="fs-2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+        <h1 class="align-self-center fs-2 my-0    text-white">Buscar Contatos</h1>
+    </header>
+<table class="table table-dark table-striped w-75">
     <thead>
         <tr class="table-row">
             <th class="table-cell align-middle text-center">ID</th>
@@ -41,13 +47,51 @@
                     <?= $content['dataNascimentoContato']?>
                 </th>
                 <th class="table-cell align-middle text-center">
-                    <a href="index.php?page=editarContatos&id=<?= $content['idContato']?>">Editar</a>
+                    <a class="btn btn-success" href="index.php?page=editarContatos&id=<?= $content['idContato']?>">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
                 </th>
                 <th class="table-cell align-middle text-center">
-                    <button class="excluirContatosButton excluirContatosButton btn btn-danger" data-id="<?= $content['idContato'] ?>">Excluir</button>
+                    <button class="excluirContatosButton excluirContatosButton btn btn-danger" data-id="<?= $content['idContato'] ?>">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </th>
             </tr>
         <?php endforeach ?>
     </tbody>
 </table>
+<div class="paginasContatos d-flex justify-content-between align-items-center gap-4 bg-light-subtle p-3 w-75 ">
+<?php 
+    $quantidadeRegistroContatos = ControllerContatos::resgatarQuantidadeContatos();
+    $intervaloPaginas           = ControllerContatos::getLimiteContatosPagina();
+    $paginaAtual                = ControllerContatos::getPaginaAtual();
+    $quantidadePaginas          = ControllerContatos::getQuantidadePaginas();
+
+    $blocoAtual = ceil($paginaAtual / $intervaloPaginas); 
+    $paginaInicio = (($blocoAtual - 1) * $intervaloPaginas) + 1; 
+    $paginaFim = min($paginaInicio + $intervaloPaginas - 1, $quantidadePaginas); 
+
+    if ($blocoAtual > 1): 
+        $paginaAnterior = $paginaInicio - 1;
+    ?>
+        <a class="paginaContato text-decoration-none text-primary fs-6" href="index.php?page=contatos&idPagina=1">« Primeira Página</a>
+        <a class="paginaContato text-decoration-none text-primary fs-6" href="index.php?page=contatos&idPagina=<?= $paginaAnterior ?>">« Anterior</a>
+    <?php endif; ?>
+
+    <?php for ($i = $paginaInicio; $i <= $paginaFim; $i++): ?>
+        <div>
+            <a class="paginaContato text-decoration-none text-primary <?= $i == $paginaAtual ? 'paginaAtiva' : '' ?>"
+            href="index.php?page=contatos&idPagina=<?= $i ?>">
+                <?= $i ?>
+            </a>
+        </div>  
+    <?php endfor; ?>
+
+    <?php if ($paginaFim < $quantidadePaginas): 
+        $paginaProxima = $paginaFim + 1;
+    ?>
+        <a class="paginaContato text-decoration-none text-primary" href="index.php?page=contatos&idPagina=<?= $paginaProxima ?>">Próximo »</a>
+        <a class="paginaContato text-decoration-none text-primary" href="index.php?page=contatos&idPagina=<?= $quantidadePaginas ?>">UltimaPagina »</a>
+    <?php endif; ?>
+</div>  
 </section>

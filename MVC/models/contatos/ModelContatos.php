@@ -38,21 +38,43 @@
         public static function resgatarDadosContatos($chaveBusca) : array {
             $pdo = Connection::conectar();
 
+            self::$paginaAtual   = self::getPaginaAtual();
+            self::$totalContatos = self::resgatarQuantidadeContatos();
+            
+            self::$quantidadePaginas = ceil(self::$totalContatos / self::$limiteContatosPagina);
+            self::$paginaInicial = (self::$paginaAtual - 1) * self::$limiteContatosPagina;
+
+            if (self::$paginaAtual > self::$quantidadePaginas) {
+                self::$paginaAtual = self::$quantidadePaginas;
+            }
+
+            $sqlSelectFrom = empty($chaveBusca) ? "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit" : "SELECT * FROM " . self::$nomeTabela . " WHERE nomeContato LIKE :chaveBusca LIMIT :offset, :limit";
+            
+            $stmt = $pdo->prepare($sqlSelectFrom);
+            $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', self::$limiteContatosPagina, PDO::PARAM_INT);
+
             if(empty($chaveBusca)) {
-                self::$paginaAtual   = self::getPaginaAtual();
-                self::$totalContatos = self::resgatarQuantidadeContatos();
-                
-                self::$quantidadePaginas = ceil(self::$totalContatos / self::$limiteContatosPagina);
-                self::$paginaInicial = (self::$paginaAtual - 1) * self::$limiteContatosPagina;
-
-                if (self::$paginaAtual > self::$quantidadePaginas) {
-                    self::$paginaAtual = self::$quantidadePaginas;
+                try {
+                    $stmt->execute();
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    throw new RuntimeException("Erro ao buscar contatos: " . $e->getMessage());
                 }
+            } else {
+                if(is_numeric($chaveBusca)) {
+                    $stmt = $pdo->prepare("SELECT * FROM contatos WHERE idContato = :id");
+                    $stmt->bindValue(':id', $chaveBusca, PDO::PARAM_INT);
 
-                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit";
-                $stmt = $pdo->prepare($sqlSelectFrom);
-                $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
-                $stmt->bindValue(':limit', self::$limiteContatosPagina, PDO::PARAM_INT);
+                    try {
+                        $stmt->execute();
+                        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    } catch(PDOException $e) {
+                        throw new RuntimeException("Erro ao buscar contato: " . $e->getMessage());
+                    }
+                } 
+
+                $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%", PDO::PARAM_STR);
 
                 try {
                     $stmt->execute();
@@ -61,29 +83,12 @@
                     throw new RuntimeException("Erro ao buscar contatos: " . $e->getMessage());
                 }
 
-            } elseif(is_int($chaveBusca)) {
-                $stmt = $pdo->prepare("SELECT * FROM contatos WHERE idContato = :id");
-                $stmt->bindValue(':id', $chaveBusca, PDO::PARAM_INT);
-
-                try {
-                    $stmt->execute();
-                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-                } catch(PDOException $e) {
-                    throw new RuntimeException("Erro ao buscar contato: " . $e->getMessage());
-                }
-            } 
-
-            $sqlLike = "SELECT * FROM contatos WHERE nomeContato LIKE :chaveBusca";
-
-            $stmt = $pdo->prepare($sqlLike);
-            $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%");
-
-            try {
-                $stmt->execute();
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-                throw new RuntimeException("Erro ao buscar contatos: " . $e->getMessage());
+                
             }
+            // $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit";
+
+            
+
         }
 
         public static function executarQuerySql($querySql) : array {
