@@ -171,7 +171,7 @@
         }
 
         public static function cadastrarImagemContato($nomeImagem, $id) : void {
-            if(!$nomeImagem || !$id || !is_numeric($id)) {
+            if(!$id || !is_numeric($id)) {
                 throw new InvalidArgumentException("O nome da imagem e um ID válido devem ser fornecidos!");
             }
 

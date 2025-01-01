@@ -3,10 +3,12 @@
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/config.php";
 
     $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
-
     $informacoesContato = ControllerContatos::resgatarDadosContatos($id)[0];
-    $imagemUsuario      = "uploads/images/";
-    $imagemUsuario      = $informacoesContato['fotoContato'] === NULL ? "defaultUser.jpg" : $informacoesContato['fotoContato'];
+
+    $imagemUsuario    = null;
+    $diretorioDestino = "uploads/";
+    // $extensaoImagem = null;
+    // $mensagemErroExtensaoImagem = null;
 
     if(isset($_POST['atualizarNascimento']) || isset($_POST['atualizarNome']) || isset($_POST['atualizarEmail']) || isset($_POST['atualizarSexo']) || isset($_POST['atualizarContato'])) {
         $dataNascimento           = date_create($_POST['atualizarNascimento'] ?? null);
@@ -24,28 +26,47 @@
         );
     }
 
+    $imagemUsuario = $informacoesContato['fotoContato'] != null && file_exists("uploads/users-images/".$informacoesContato['fotoContato']) ? $informacoesContato['fotoContato'] : "defaut-user/defaultUser.jpg";
+
     if(isset($_FILES['imagemUsuario']['name'])) {
-        $mensagemErroImagem       = "";
-        $mensagemSucessoImagem    = "";
-        $diretorioDestino = "/uploads/";
+        $extensoesValidas = ["jpg", "png", "jpeg"];
+        $extensaoImagem   = pathinfo($_FILES['imagemUsuario']['name'], PATHINFO_EXTENSION);
 
-        $arquivoImagem = $_FILES['imagemUsuario']['name'];
-        $arquivoImagem = str_replace(" ", "-", $arquivoImagem);
-
-        $nomeImagemTemporario   = $_FILES['imagemUsuario']['tmp_name'];
-        $diretorioDestinoImagem   = ROOT_DIR . $diretorioDestino . $arquivoImagem;
-
-        if (file_exists($diretorioDestinoImagem)) {
-            $erroImagem = "Imagem já existe";
-        } else {
-            if (move_uploaded_file($nomeImagemTemporario, $diretorioDestinoImagem)) {
-                ControllerContatos::cadastrarImagemContato($arquivoImagem, $id);
-                $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
-                $sucessoImagem = "Imagem cadastrada com sucesso";
-            } else {
-                $erroImagem = "Erro ao fazer upload da imagem";
+        foreach ($extensoesValidas as $chave => $valor) {
+            if (strtolower($extensaoImagem) === strtolower($valor)) {
+                $mensagemErroImagem       = "";
+                $mensagemSucessoImagem    = "";
+        
+                $arquivoImagem = $_FILES['imagemUsuario']['name'];
+                $arquivoImagem = str_replace(" ", "-", $arquivoImagem);
+        
+                $nomeImagemTemporario   = $_FILES['imagemUsuario']['tmp_name'];
+                $diretorioDestinoImagem = $diretorioDestino . $arquivoImagem;
+        
+                if (file_exists($diretorioDestinoImagem)) {
+                    $erroImagem = "Imagem já existe";
+                    $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaut-user/defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
+                } else {
+                    if (move_uploaded_file($nomeImagemTemporario, $diretorioDestinoImagem)) {
+                        ControllerContatos::cadastrarImagemContato($arquivoImagem, $id);
+                        $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
+                        $sucessoImagem = "Imagem cadastrada com sucesso";
+                    } else {
+                        $erroImagem = "Erro ao fazer upload da imagem";
+                    }
+                }
+                break;
             }
         }
+
+        if(!$imagemUsuario) {
+            $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaut-user/defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
+            $mensagemErroExtensaoImagem = "Da uma extensão que presta z";
+        }
+    }
+    if(!file_exists($diretorioDestino . "users-images/".$informacoesContato['fotoContato']) && $informacoesContato['fotoContato'] != null) {
+        ControllerContatos::cadastrarImagemContato(null, $id);
+        $informacoesContato['fotoContato'] = null;
     }
 ?>
 <section class="w-100 h-70 d-flex justify-content-between  bg-secondary">
@@ -113,7 +134,7 @@
         </div>
     </form>
     <div class="imagemUsuario mt-3 d-flex flex-column justify-content-center align-items-center w-50">
-        <img width="50%" height="auto" src="uploads/<?= $imagemUsuario?>" alt="">
+        <img width="50%" height="auto" src="<?= $diretorioDestino . $imagemUsuario?>" alt="">
         <div class="input-group w-50">
             <button id="btn-foto-usuario" class="btn btn-primary form-control" type="button">Alterar foto</button>
         </div>
@@ -129,6 +150,11 @@
         <?php if(isset($erroImagem) && !empty($erroImagem)): ?>
             <div id="erroImagem" class="text-danger bg-danger-subtle p-1 w-50 text-center rounded border border-danger mt-3">
             <?= $erroImagem ?>
+            </div>
+        <?php endif?>
+        <?php if(isset($mensagemErroExtensaoImagem) && !empty($mensagemErroExtensaoImagem)): ?>
+            <div id="erroImagem" class="text-danger bg-danger-subtle p-1 w-50 text-center rounded border border-danger mt-3">
+            <?= $mensagemErroExtensaoImagem ?>
             </div>
         <?php endif?>
         <?php if(isset($sucessoImagem) && !empty($sucessoImagem)): ?>
