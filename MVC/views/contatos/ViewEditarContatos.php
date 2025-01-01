@@ -126,22 +126,14 @@
             </div>
             <button id="btn-submit-foto" class="btn btn-success w-100 mt-3" type="submit">Upload</button>
         </form>
-        <?php 
-            // if(isset($erroImagem) && !empty($erroImagem)) {
-            //     echo '<div class="text-danger bg-danger-subtle p-1 w-50 text-center rounded border border-danger mt-3">' . $erroImagem . '</div>';
-            // } else if(isset($sucessoImagem) && !empty($sucessoImagem)) {
-            //     echo '<div class="text-success bg-success-subtle p-1 w-50 text-center rounded border border-success mt-3">' . $sucessoImagem . '</div>';
-            // }
-        ?>
-
         <?php if(isset($erroImagem) && !empty($erroImagem)): ?>
-            <div class="text-danger bg-danger-subtle p-1 w-50 text-center rounded border border-danger mt-3">
-                <?= $erroImagem ?>
+            <div id="erroImagem" class="text-danger bg-danger-subtle p-1 w-50 text-center rounded border border-danger mt-3">
+            <?= $erroImagem ?>
             </div>
         <?php endif?>
         <?php if(isset($sucessoImagem) && !empty($sucessoImagem)): ?>
-            <div class="text-success bg-success-subtle p-1 w-50 text-center rounded border border-success mt-3">
-                <?= $sucessoImagem ?>
+            <div id="sucessoImagem" class="text-success bg-success-subtle p-1 w-50 text-center rounded border border-success mt-3">
+            <?= $sucessoImagem ?>
             </div>
         <?php endif ?>
     </div>
