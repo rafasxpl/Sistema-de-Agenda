@@ -10,7 +10,7 @@
 <body class="h-100">
     <header class="d-flex justify-content-around align-items-center p-3 bg-dark">
         <div class="logo">
-            <h1 class="text-white">Agenda</h1>
+            <img width="100" src="logoSistema.png" alt="Imagem de um calendário">
         </div>
         <nav>
             <ul class="list-unstyled d-flex gap-5">

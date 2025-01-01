@@ -82,13 +82,7 @@
                 } catch (PDOException $e) {
                     throw new RuntimeException("Erro ao buscar contatos: " . $e->getMessage());
                 }
-
-                
             }
-            // $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit";
-
-            
-
         }
 
         public static function executarQuerySql($querySql) : array {
