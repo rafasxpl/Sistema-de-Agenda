@@ -7,8 +7,7 @@
 
     $imagemUsuario    = null;
     $diretorioDestino = "uploads/";
-    // $extensaoImagem = null;
-    // $mensagemErroExtensaoImagem = null;
+    $extensaoValida   = null;
 
     if(isset($_POST['atualizarNascimento']) || isset($_POST['atualizarNome']) || isset($_POST['atualizarEmail']) || isset($_POST['atualizarSexo']) || isset($_POST['atualizarContato'])) {
         $dataNascimento           = date_create($_POST['atualizarNascimento'] ?? null);
@@ -26,14 +25,22 @@
         );
     }
 
-    $imagemUsuario = $informacoesContato['fotoContato'] != null && file_exists("uploads/users-images/".$informacoesContato['fotoContato']) ? $informacoesContato['fotoContato'] : "defaut-user/defaultUser.jpg";
+    $imagemUsuario = $informacoesContato['fotoContato'] != null && file_exists($diretorioDestino . $informacoesContato['fotoContato']) ? $informacoesContato['fotoContato'] : "defaut-user/defaultUser.jpg";
+
+    if($informacoesContato['fotoContato'] != null && file_exists($diretorioDestino . $informacoesContato['fotoContato'])){
+        $imagemUsuario = $informacoesContato['fotoContato'];
+    } else {
+        $imagemUsuario = "defaut-user/defaultUser.jpg";
+        ControllerContatos::cadastrarImagemContato(null, $id);
+    }
 
     if(isset($_FILES['imagemUsuario']['name'])) {
-        $extensoesValidas = ["jpg", "png", "jpeg"];
+        $formatosValidos = ["jpg", "png", "jpeg"];
         $extensaoImagem   = pathinfo($_FILES['imagemUsuario']['name'], PATHINFO_EXTENSION);
 
-        foreach ($extensoesValidas as $chave => $valor) {
+        foreach ($formatosValidos as $chave => $valor) {
             if (strtolower($extensaoImagem) === strtolower($valor)) {
+                $extensaoValida = true;
                 $mensagemErroImagem       = "";
                 $mensagemSucessoImagem    = "";
         
@@ -59,15 +66,11 @@
             }
         }
 
-        if(!$imagemUsuario) {
+        if(!$extensaoValida) {
             $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaut-user/defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
-            $mensagemErroExtensaoImagem = "Da uma extensão que presta z";
+            $mensagemErroExtensaoImagem = "Forneça uma extensão válida (JPG, JPEG, PNG)";
         }
-    }
-    if(!file_exists($diretorioDestino . "users-images/".$informacoesContato['fotoContato']) && $informacoesContato['fotoContato'] != null) {
-        ControllerContatos::cadastrarImagemContato(null, $id);
-        $informacoesContato['fotoContato'] = null;
-    }
+    }  
 ?>
 <section class="w-100 h-70 d-flex justify-content-between  bg-secondary">
     <form class="d-flex flex-column align-items-center gap-4 w-50 mt-3" action="" method="POST">
