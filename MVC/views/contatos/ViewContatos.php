@@ -3,9 +3,6 @@
     
     $dadosContatos = ControllerContatos::resgatarDadosContatos(null);
 
-//     if(!ControllerContatos::resgatarDadosContatos(null)) {
-//         ControllerContatos::executarQuerySql("TRUNCATE TABLE contatos");
-//     }
 ?>
 <section class="containerContatos w-100 h-100 d-flex flex-column align-items-center ">
     <form class="formBuscaContatos w-75 my-3 d-flex justify-content-center column-gap-3" 
@@ -16,7 +13,6 @@
             <a class="text-decoration-none text-white" href="index.php?page=adicionarContatos">Adicionar contato</a>
         </button>
     </form>
-    
     <div class="exibirContatos w-75">
         <table class="table table-dark table-striped table-hover">
             <thead>
@@ -66,7 +62,7 @@
             </tbody>
         </table>
     </div>
-    <div class="paginasContatos d-flex justify-content-between align-items-center gap-4 bg-light-subtle p-3 w-75 ">
+    <div class="paginasContatos d-flex justify-content-around align-items-center gap-4 bg-light-subtle p-3 w-75 ">
     <?php 
         $quantidadeRegistroContatos = ControllerContatos::resgatarQuantidadeContatos();
         $intervaloPaginas           = ControllerContatos::getLimiteContatosPagina();
@@ -97,7 +93,7 @@
             $paginaProxima = $paginaFim + 1;
         ?>
             <a class="paginaContato text-decoration-none text-primary" href="index.php?page=contatos&idPagina=<?= $paginaProxima ?>">Próximo »</a>
-            <a class="paginaContato text-decoration-none text-primary" href="index.php?page=contatos&idPagina=<?= $quantidadePaginas ?>">UltimaPagina »</a>
+            <a class="paginaContato text-decoration-none text-primary" href="index.php?page=contatos&idPagina=<?= $quantidadePaginas ?>">Ultima Pagina »</a>
         <?php endif; ?>
 </div>  
 </section>

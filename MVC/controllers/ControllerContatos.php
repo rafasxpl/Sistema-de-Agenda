@@ -40,7 +40,7 @@
             return ModelContatos::getQuantidadePaginas();
         }
 
-        public static function cadastrarImagemContato($nomeImagem, $id)            : void {
-            ModelContatos::cadastrarImagemContato($nomeImagem, $id);
+        public static function cadastrarNomeImagemContato($nomeImagem, $id)            : void {
+            ModelContatos::cadastrarNomeImagemContato($nomeImagem, $id);
         }
     }

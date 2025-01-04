@@ -9,29 +9,26 @@
     $diretorioDestino = "uploads/";
     $extensaoValida   = null;
 
-    if(isset($_POST['atualizarNascimento']) || isset($_POST['atualizarNome']) || isset($_POST['atualizarEmail']) || isset($_POST['atualizarSexo']) || isset($_POST['atualizarContato'])) {
-        $dataNascimento           = date_create($_POST['atualizarNascimento'] ?? null);
+    function updateInformacoesContato($dados, $id) {
+        $dataNascimento           = date_create($dados['atualizarNascimento'] ?? null);
         $dataNascimentoFormatada  = date_format($dataNascimento, 'Y-m-d');
 
-        ControllerContatos::atualizarInformacoesContatos(
-            [
-                "nomeContato"           =>  $_POST['atualizarNome']     ?? null,
-                "emailContato"          =>  $_POST['atualizarEmail']    ?? null,
-                "sexoContato"           =>  $_POST['atualizarSexo']     ?? null,
-                "telefoneContato"       =>  $_POST['atualizarContato']  ?? null,
+        ControllerContatos::atualizarInformacoesContatos([
+                "nomeContato"           =>  $dados['atualizarNome']     ?? null,
+                "emailContato"          =>  $dados['atualizarEmail']    ?? null,
+                "sexoContato"           =>  $dados['atualizarSexo']     ?? null,
+                "telefoneContato"       =>  $dados['atualizarContato']  ?? null,
                 "dataNascimentoContato" =>  $dataNascimentoFormatada    ?? null,
             ],
             $id
-        );
+        );  
     }
-
-    $imagemUsuario = $informacoesContato['fotoContato'] != null && file_exists($diretorioDestino . $informacoesContato['fotoContato']) ? $informacoesContato['fotoContato'] : "defaut-user/defaultUser.jpg";
 
     if($informacoesContato['fotoContato'] != null && file_exists($diretorioDestino . $informacoesContato['fotoContato'])){
         $imagemUsuario = $informacoesContato['fotoContato'];
     } else {
         $imagemUsuario = "defaut-user/defaultUser.jpg";
-        ControllerContatos::cadastrarImagemContato(null, $id);
+        ControllerContatos::cadastrarNomeImagemContato(null, $id);
     }
 
     if(isset($_FILES['imagemUsuario']['name'])) {
@@ -52,11 +49,10 @@
         
                 if (file_exists($diretorioDestinoImagem)) {
                     $erroImagem = "Imagem já existe";
-                    $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaut-user/defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
                 } else {
                     if (move_uploaded_file($nomeImagemTemporario, $diretorioDestinoImagem)) {
-                        ControllerContatos::cadastrarImagemContato($arquivoImagem, $id);
-                        $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
+                        ControllerContatos::cadastrarNomeImagemContato($arquivoImagem, $id);
+                        $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaut-user/defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
                         $sucessoImagem = "Imagem cadastrada com sucesso";
                     } else {
                         $erroImagem = "Erro ao fazer upload da imagem";
@@ -65,12 +61,17 @@
                 break;
             }
         }
-
         if(!$extensaoValida) {
             $imagemUsuario = ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'] === NULL ? "defaut-user/defaultUser.jpg" : ControllerContatos::resgatarDadosContatos($id)[0]['fotoContato'];
             $mensagemErroExtensaoImagem = "Forneça uma extensão válida (JPG, JPEG, PNG)";
         }
-    }  
+    }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['atualizarNascimento']) || isset($_POST['atualizarNome']) || isset($_POST['atualizarEmail']) || isset($_POST['atualizarSexo']) || isset($_POST['atualizarContato'])) {
+            updateInformacoesContato($_POST, $id);
+        }
+    }
 ?>
 <section class="w-100 h-70 d-flex justify-content-between  bg-secondary">
     <form class="d-flex flex-column align-items-center gap-4 w-50 mt-3" action="" method="POST">
