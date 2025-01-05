@@ -47,7 +47,7 @@
                     <?= $content['dataNascimentoContato']?>
                 </th>
                 <th class="table-cell align-middle text-center">
-                    <a class="btn btn-success" href="index.php?page=editarContatos&id=<?= $content['idContato']?>">
+                    <a class="btn btn-primary" href="index.php?page=editarContatos&id=<?= $content['idContato']?>">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                 </th>

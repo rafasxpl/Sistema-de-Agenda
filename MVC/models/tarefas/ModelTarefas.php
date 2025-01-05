@@ -3,7 +3,7 @@
     
     class ModelTarefas {
         private static string $nomeTabela        = "tarefas";
-        private static int $limiteTarefasPagina  = 10;
+        private static int $limiteTarefasPagina  = 8;
         private static int $quantidadePaginas    = 0;
         private static int $paginaInicial        = 0;
         private static int $paginaAtual          = 0;
@@ -14,7 +14,7 @@
         }
 
         public static function getPaginaAtual() : int {
-            return (!isset($_GET['idPagina']) || !is_numeric($_GET['idPagina']) || $_GET['idPagina'] < 1) ? 1 : (int) $_GET['idPagina'];
+            return (!isset($_GET['idPaginaTarefa']) || !is_numeric($_GET['idPaginaTarefa']) || $_GET['idPaginaTarefa'] < 1) ? 1 : (int) $_GET['idPaginaTarefa'];
         }
 
         public static function getQuantidadePaginas() : int {
