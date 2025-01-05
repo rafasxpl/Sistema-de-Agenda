@@ -7,8 +7,10 @@
 <section class="containerContatos w-100 h-100 d-flex flex-column align-items-center ">
     <form class="formBuscaContatos w-75 my-3 d-flex justify-content-center column-gap-3" 
     action="index.php?page=buscarContatos" method="POST">
-        <input class="w-75 form-control p-1" type="text" name="chaveBusca" placeholder="Buscar contato">
-        <button class="w-auto btn btn-primary px-3 py-2" id="buscarContato" type="submit">Buscar</button>
+        <div class="input-group">
+            <input class="form-control w-75 form-control p-1" type="text" name="chaveBusca" placeholder="Buscar contato">
+            <button class="input-group-text w-auto btn btn-primary px-3 py-2" id="buscarContato" type="submit">Buscar</button>
+        </div>
         <button class="adicionarContatosButton btn btn-success">
             <a class="text-decoration-none text-white" href="index.php?page=adicionarContatos">Adicionar contato</a>
         </button>

@@ -11,8 +11,10 @@
 ?>
 <section class="containerTarefas w-75 h-100 d-flex flex-column align-items-center mx-auto">
     <form class="w-100 my-3 d-flex justify-content-center column-gap-3" action="index.php?page=buscarTarefas" method="POST" class="formBuscaTarefas">
-        <input class="w-75 form-control p-1" type="text" placeholder="Buscar Tarefa" name="chaveBusca">
-        <button class="w-auto btn btn-primary px-3 py-2" id="buscarTarefa" type="submit">Buscar</button>
+        <div class="input-group">
+            <input class="form-control w-75 form-control p-1" type="text" placeholder="Buscar Tarefa" name="chaveBusca">
+            <button class="input-group-text w-auto btn btn-primary px-3 py-2" id="buscarTarefa" type="submit">Buscar</button>
+        </div>
         <button class="adicionarTarefasButton btn btn-success   ">
             <a class="text-decoration-none text-white" href="index.php?page=adicionarTarefas">Adicionar Tarefa</a>
         </button>
