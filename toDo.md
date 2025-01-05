@@ -1,1 +1,1 @@
-checar se o nome da imagem cadastrado no banco tem correspondencia na pasta de imagens dos usuarios
+resgatar o status da tarefa e colocar um checkbox de concluido ou não

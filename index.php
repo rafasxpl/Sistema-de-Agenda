@@ -34,6 +34,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/excluirContato.js"></script>
     <script src="js/hideShowElements.js"></script>
+    <script src="js/checkBoxTarefas.js"></script>
     <script src="https://kit.fontawesome.com/fd7710791c.js" crossorigin="anonymous"></script>
 </body>
 </html>

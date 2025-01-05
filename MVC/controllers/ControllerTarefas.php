@@ -1,6 +1,6 @@
 <?php 
-    require_once "MVC/models/tarefas/ModelTarefas.php";
-
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/tarefas/ModelTarefas.php";
+   
     class ControllerTarefas {
         
         public static function resgatarDadosTarefas($chaveBusca)                  : array {
@@ -21,5 +21,9 @@
 
         public static function getQuantidadePaginas()                              : int {
             return ModelTarefas::getQuantidadePaginas();
+        }
+
+        public static function concluirTarefa($status, $id)                                 :void {
+            ModelTarefas::concluirTarefa($status, $id);
         }
     }

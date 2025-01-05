@@ -3,6 +3,11 @@
     
     $dadosTarefas = ControllerTarefas::resgatarDadosTarefas(null);
 
+    if(isset($_POST['checked']) ?? "" && isset($_POST['id'])) {
+        $status = $_POST['checked'];
+        $idCheckBox = $_POST['id'];
+        ControllerTarefas::concluirTarefa($status ,$idCheckBox);
+    }
 ?>
 <section class="containerTarefas w-75 h-100 d-flex flex-column align-items-center mx-auto">
     <form class="w-100 my-3 d-flex justify-content-center column-gap-3" action="index.php?page=buscarTarefas" method="POST" class="formBuscaTarefas">
@@ -16,13 +21,11 @@
         <table class="table table-dark table-striped table-hover">
             <thead>
                 <tr class="table-row">
-                    <th class="table-cell align-middle text-center">ID</th>
+                    <th class="table-cell align-middle text-center">Status</th>
                     <th class="table-cell align-middle text-center">Tarefa</th>
                     <th class="table-cell align-middle text-center">Descrição</th>
                     <th class="table-cell align-middle text-center">Data de conclusão</th>
                     <th class="table-cell align-middle text-center">Hora de conclusão</th>
-                    <th class="table-cell align-middle text-center">Data Lembrete</th>
-                    <th class="table-cell align-middle text-center">Hora lembrete</th>
                     <th class="table-cell align-middle text-center" colspan="2">Opções</th>
                 </tr>
             </thead>
@@ -30,7 +33,7 @@
                 <?php foreach($dadosTarefas as $content):?>
                     <tr class="table-row">
                         <th class="table-cell align-middle text-center">
-                            <?= $content['idTarefa']?>
+                            <input id="<?= $content['idTarefa'] ?>" class="checkBoxTarefa form-check-input" type="checkbox" name="status" <?= $content['statusTarefa'] === 0 ? '' : 'checked' ?>>
                         </th>
                         <th class="table-cell align-middle text-center">
                             <?= $content['tituloTarefa'] ?>
@@ -45,13 +48,6 @@
                             <?= $content['horaConclusaoTarefa'] ?>
                         </th>
                         <th class="table-cell align-middle text-center">
-                            <?= $content['dataLembreteTarefa']?>
-                        </th>
-                        <th class="table-cell align-middle text-center">
-                            <?= $content['horaLembreteTarefa']?>
-                        </th>
-                       
-                        <th class="table-cell align-middle text-center">
                             <a class="btn btn-primary" href="index.php?page=editarTarefa&id=<?= $content['idTarefa']?>">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
@@ -65,7 +61,6 @@
                 <?php endforeach ?>
             </tbody>
         </table>
-        
     </div>
     <div class="paginasContatos d-flex justify-content-around align-items-center gap-4 bg-light-subtle p-3 w-75">
     <?php 

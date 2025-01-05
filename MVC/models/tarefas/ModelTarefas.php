@@ -2,12 +2,12 @@
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/Connection.php";
     
     class ModelTarefas {
-        private static string $nomeTabela        = "tarefas";
-        private static int $limiteTarefasPagina  = 8;
-        private static int $quantidadePaginas    = 0;
-        private static int $paginaInicial        = 0;
-        private static int $paginaAtual          = 0;
-        private static int $totalTarefas         = 0;
+        private static string $nomeTabela           = "tarefas";
+        private static int    $limiteTarefasPagina  = 8;
+        private static int    $quantidadePaginas    = 0;
+        private static int    $paginaInicial        = 0;
+        private static int    $paginaAtual          = 0;
+        private static int    $totalTarefas         = 0;
 
         public static function getLimiteTarefasPagina() : int {
             return self::$limiteTarefasPagina;
@@ -49,7 +49,7 @@
                     self::$paginaAtual = self::$quantidadePaginas;
                 }
 
-                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit";
+                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " ORDER BY statusTarefa DESC LIMIT :offset, :limit";
                 $stmt = $pdo->prepare($sqlSelectFrom);
                 $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
                 $stmt->bindValue(':limit', self::$limiteTarefasPagina, PDO::PARAM_INT);
@@ -83,6 +83,25 @@
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 throw new RuntimeException("Erro ao buscar Tarefas: " . $e->getMessage());
+            }
+        }
+
+        public static function concluirTarefa($status, $idTarefa) : void {
+            $pdo = Connection::conectar();
+
+            if(empty($idTarefa) || !is_numeric($idTarefa)) {
+                throw new InvalidArgumentException("ID da tarefa e status devem ser informados corretamente");
+            }
+ 
+            $sqlConcluirTarefa = "UPDATE " . self::$nomeTabela ." SET statusTarefa = :status WHERE idTarefa = :id";
+            $stmt = $pdo->prepare($sqlConcluirTarefa);
+            $stmt->bindValue(':id', $idTarefa, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status, PDO::PARAM_INT);
+
+            try {
+                $stmt->execute();
+            } catch(PDOException $e) {
+                throw new RuntimeException("Erro ao concluir tarefa: ". $e->getMessage());
             }
         }
     }
