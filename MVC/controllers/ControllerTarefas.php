@@ -30,4 +30,8 @@
         public static function atualizarInformacoesTarefa($matrizDeValores, $id)    :void {
             ModelTarefas::atualizarInformacoesTarefa($matrizDeValores, $id);
         }
+
+        public static function excluirTarefa($id)                                   :void {
+            ModelTarefas::excluirTarefa($id);
+        }
     }

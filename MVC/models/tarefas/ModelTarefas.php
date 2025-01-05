@@ -134,4 +134,23 @@
                 throw new RuntimeException("Erro ao atualizar contato: " . $e->getMessage());
             }
         }
+
+        public static function excluirTarefa($id) : void {
+            if (!$id || !is_numeric($id)) {
+                throw new InvalidArgumentException("ID inválido fornecido!");
+            }
+
+            $pdo = Connection::conectar();
+            $sqlDelete = "DELETE FROM " . self::$nomeTabela . " WHERE idTarefa = :id";
+        
+            $stmt = $pdo->prepare($sqlDelete);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                throw new RuntimeException("Erro ao excluir contato: " . $e->getMessage());
+            }
+
+        }
     }
