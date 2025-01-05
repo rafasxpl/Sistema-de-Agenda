@@ -96,12 +96,42 @@
             $sqlConcluirTarefa = "UPDATE " . self::$nomeTabela ." SET statusTarefa = :status WHERE idTarefa = :id";
             $stmt = $pdo->prepare($sqlConcluirTarefa);
             $stmt->bindValue(':id', $idTarefa, PDO::PARAM_INT);
-            $stmt->bindValue(':status', $status, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status, PDO::PARAM_STR);
 
             try {
                 $stmt->execute();
             } catch(PDOException $e) {
                 throw new RuntimeException("Erro ao concluir tarefa: ". $e->getMessage());
+            }
+        }
+
+        public static function atualizarInformacoesTarefa($matrizDeValores, $id) : void {
+            if (!$matrizDeValores || !$id || !is_numeric($id)) {
+            throw new InvalidArgumentException("A matriz de valores e um ID válido devem ser fornecidos!");
+            }
+
+            $pdo = Connection::conectar();
+
+            $sqlUpdate = "UPDATE " . self::$nomeTabela . " SET ";
+            $colunaValor = [];
+
+            foreach ($matrizDeValores as $chave => $valor) {
+            $colunaValor[] = "$chave = :$chave";
+            }
+
+            $sqlUpdate .= implode(", ", $colunaValor) . " WHERE idTarefa = :id";
+            $stmt = $pdo->prepare($sqlUpdate);
+
+            foreach ($matrizDeValores as $chave => $valor) {
+                $stmt->bindValue(":$chave", $valor, PDO::PARAM_STR);
+            }
+
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                throw new RuntimeException("Erro ao atualizar contato: " . $e->getMessage());
             }
         }
     }

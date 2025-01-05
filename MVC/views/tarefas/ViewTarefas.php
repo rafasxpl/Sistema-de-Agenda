@@ -33,7 +33,7 @@
                 <?php foreach($dadosTarefas as $content):?>
                     <tr class="table-row">
                         <th class="table-cell align-middle text-center">
-                            <input id="<?= $content['idTarefa'] ?>" class="checkBoxTarefa form-check-input" type="checkbox" name="status" <?= $content['statusTarefa'] === 0 ? '' : 'checked' ?>>
+                            <input id="<?= $content['idTarefa'] ?>" class="checkBoxTarefa form-check-input" type="checkbox" name="status" <?= $content['statusTarefa'] === '0' ? '' : 'checked' ?>>
                         </th>
                         <th class="table-cell align-middle text-center">
                             <?= $content['tituloTarefa'] ?>

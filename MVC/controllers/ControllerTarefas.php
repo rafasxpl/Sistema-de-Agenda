@@ -23,7 +23,11 @@
             return ModelTarefas::getQuantidadePaginas();
         }
 
-        public static function concluirTarefa($status, $id)                                 :void {
+        public static function concluirTarefa($status, $id)                         :void {
             ModelTarefas::concluirTarefa($status, $id);
+        }
+
+        public static function atualizarInformacoesTarefa($matrizDeValores, $id)    :void {
+            ModelTarefas::atualizarInformacoesTarefa($matrizDeValores, $id);
         }
     }
