@@ -6,10 +6,10 @@ $(document).ready(function() {
             url: 'http://localhost:81/Sistema-de-Agenda/MVC/views/contatos/ViewExcluirContatos.php',
             type: 'POST',
             data: { id: userId },
-            success: function(response) {
+            success: function() {
                 location.reload();
             },
-            error: function(xhr, status, error) {
+            error: function(_, __, error) {
                 console.log('Erro ao excluir contato: ' + error);
             }
         });

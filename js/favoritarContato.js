@@ -3,9 +3,6 @@ $(document).ready(function() {
         let flagFavoritoContato = Number($(this).prop('id'));
         let idContato           = Number($(this).data('id'));
 
-        console.log(idContato);
-        console.log(flagFavoritoContato);
-        
         $.ajax({
             url: 'http://localhost:81/Sistema-de-Agenda/MVC/views/contatos/ViewContatos.php',
             type: 'POST',

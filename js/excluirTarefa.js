@@ -6,10 +6,10 @@ $(document).ready(() => {
             url: 'http://localhost:81/Sistema-de-Agenda/MVC/views/tarefas/ViewExcluirTarefa.php',
             type: 'POST',
             data: { idTarefa: idTarefa },
-            success: function(response) {
+            success: function() {
                 location.reload();
             },
-            error: function(xhr, status, error) {
+            error: function(_, __, error) {
                 console.log('Erro ao excluir contato: ' + error);
             }
         });
