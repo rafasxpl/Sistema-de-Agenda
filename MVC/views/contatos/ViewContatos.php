@@ -12,10 +12,16 @@
             echo $e->getMessage();
         }
     }
-    
+
 ?>
 <section class="containerContatos w-100 h-100 d-flex flex-column align-items-center">
-    <form class="formBuscaContatos w-75 my-3 d-flex column-gap-3" 
+    <header class="w-75 my-3 d-flex align-items-center gap-3">
+        <span class="fs-2">
+            <i class="fa-solid fa-address-book"></i>
+        </span>
+        <h1 class="align-self-center fs-2 my-0 text-white">Contatos</h1>
+    </header>
+    <form class="formBuscaContatos mb-3 w-75 d-flex column-gap-3" 
     action="index.php?page=buscarContatos" method="POST">
         <div class="input-group">
             <input class="form-control w-75 form-control p-1" type="text" name="chaveBusca" placeholder="Buscar contato">

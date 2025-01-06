@@ -10,7 +10,13 @@
     }
 ?>
 <section class="containerTarefas w-100 h-100 d-flex flex-column align-items-center mx-auto">
-    <form class="w-75 my-3 d-flex justify-content-end column-gap-3" action="index.php?page=buscarTarefas" method="POST" class="formBuscaTarefas">
+    <header class="w-75 my-3 d-flex align-items-center gap-3">
+        <span class="fs-2">
+            <i class="fa-solid fa-list"></i>
+        </span>
+        <h1 class="align-self-center fs-2 my-0    text-white">Tarefas</h1>
+    </header>
+    <form class="w-75 mb-3 d-flex justify-content-end column-gap-3" action="index.php?page=buscarTarefas" method="POST" class="formBuscaTarefas">
         <div class="input-group">
             <input class="form-control w-75 form-control p-1" type="text" placeholder="Buscar Tarefa" name="chaveBusca">
             <button class="input-group-text w-auto btn btn-primary px-3 py-2" id="buscarTarefa" type="submit">Buscar</button>

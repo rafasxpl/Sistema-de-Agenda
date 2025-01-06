@@ -6,8 +6,8 @@
 
     $dadosContato = ControllerContatos::resgatarDadosContatos($chaveBusca);
 ?>
-<section class="w-100 d-flex flex-column align-items-center pt-3">
-    <header class="w-75 d-flex align-items-center gap-3">
+<section class="w-100 d-flex flex-column align-items-center">
+    <header class="w-75 my-3 d-flex align-items-center gap-3">
         <span class="fs-2">
             <i class="fa-solid fa-magnifying-glass"></i>
         </span>
@@ -22,6 +22,7 @@
             <th class="table-cell align-middle text-center">Telefone</th>
             <th class="table-cell align-middle text-center">Sexo</th>
             <th class="table-cell align-middle text-center">Nascimento</th>
+            <th class="table-cell align-middle text-center">Telefone</th>
             <th class="table-cell align-middle text-center" colspan="2">Opções</th>
         </tr>
     </thead>
@@ -43,13 +44,13 @@
                     <?= $content['emailContato'] ?>
                 </th>
                 <th class="table-cell align-middle text-center">
-                    <?= $content['telefoneContato'] ?>
-                </th>
-                <th class="table-cell align-middle text-center">
                     <?= $content['sexoContato'] ?>
                 </th>
                 <th class="table-cell align-middle text-center">
                     <?= $content['dataNascimentoContato']?>
+                </th>
+                <th class="table-cell align-middle text-center">
+                    <?= $content['telefoneContato'] ?>
                 </th>
                 <th class="table-cell align-middle text-center">
                     <a class="btn btn-primary" href="index.php?page=editarContatos&id=<?= $content['idContato']?>">
@@ -57,7 +58,7 @@
                     </a>
                 </th>
                 <th class="table-cell align-middle text-center">
-                    <button class="excluirContatosButton excluirContatosButton btn btn-danger" data-id="<?= $content['idContato'] ?>">
+                    <button class="excluirContatosButton btn btn-danger" data-id="<?= $content['idContato'] ?>">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </th>
