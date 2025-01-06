@@ -3,10 +3,13 @@
         ""                  => "/index.php",
         "home"              => "/MVC/views/ViewHome.php",
         "eventos"           => "/MVC/views/eventos/ViewEventos.php",
+
         "tarefas"           => "/MVC/views/tarefas/ViewTarefas.php",
         "buscarTarefas"     => "/MVC/views/tarefas/ViewBuscarTarefas.php",
         "editarTarefa"      => "/MVC/views/tarefas/ViewEditarTarefa.php",
+        "adicionarTarefa"   => "/MVC/views/tarefas/ViewAdicionarTarefa.php",
         "tarefasConcluidas" => "/MVC/views/tarefas/ViewTarefasConcluidas.php",
+        
         "contatos"          => "/MVC/views/contatos/ViewContatos.php",
         "buscarContatos"    => "/MVC/views/contatos/ViewBuscarContatos.php",
         "adicionarContatos" => "/MVC/views/contatos/ViewAdicionarContatos.php",
