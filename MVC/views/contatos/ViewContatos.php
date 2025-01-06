@@ -12,8 +12,7 @@
             echo $e->getMessage();
         }
     }
-
-
+    
 ?>
 <section class="containerContatos w-100 h-100 d-flex flex-column align-items-center">
     <form class="formBuscaContatos w-75 my-3 d-flex column-gap-3" 

@@ -29,6 +29,11 @@
         <?php foreach($dadosContato as $content):?>
             <tr class="table-row">
                 <th class="table-cell align-middle text-center">
+                    <button data-id="<?= $content['idContato'] ?>" id="<?= $content['flagFavoritoContato'] ?>" class="btn btnFavoritarContato">
+                        <?=$content['flagFavoritoContato'] === 1 ? '<i class="fa-solid fa-star" style="color: #FFD43B;"></i>' : '<i class="fa-regular fa-star" style="color: #ffffff;"></i>'?>
+                    </button>
+                </th>
+                <th class="table-cell align-middle text-center">
                     <?= $content['idContato']?>
                 </th>
                 <th class="table-cell align-middle text-center">

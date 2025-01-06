@@ -24,8 +24,8 @@
         public static function resgatarQuantidadeContatos() : int {
             $pdo = Connection::conectar();
 
-            $sqlSelectFromAll = "SELECT COUNT(*) FROM " . self::$nomeTabela;
-            $stmt = $pdo->prepare($sqlSelectFromAll);
+            $sqlSelectQuantidadeContatos = "SELECT COUNT(*) FROM " . self::$nomeTabela;
+            $stmt = $pdo->prepare($sqlSelectQuantidadeContatos);
 
             try {
                 $stmt->execute();
@@ -48,7 +48,10 @@
                 self::$paginaAtual = self::$quantidadePaginas;
             }
 
-            $sqlSelectFrom = empty($chaveBusca) ? "SELECT * FROM " . self::$nomeTabela . " LIMIT :offset, :limit" : "SELECT * FROM " . self::$nomeTabela . " WHERE nomeContato LIKE :chaveBusca LIMIT :offset, :limit";
+            $sqlSelectFromAll = "SELECT * FROM " . self::$nomeTabela . " ORDER BY flagFavoritoContato DESC LIMIT :offset, :limit";
+            $sqlChaveBusca    = "SELECT * FROM " . self::$nomeTabela . " WHERE nomeContato LIKE :chaveBusca ORDER BY flagFavoritoContato DESC LIMIT :offset, :limit";
+
+            $sqlSelectFrom = empty($chaveBusca) ? $sqlSelectFromAll : $sqlComChaveBusca;
 
             $stmt = $pdo->prepare($sqlSelectFrom);
             $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
@@ -195,7 +198,7 @@
             }
 
             $pdo = Connection::conectar();
-            
+
             $sqlUpdateFlagFavorito = "UPDATE " . self::$nomeTabela . " SET flagFavoritoContato = :flagFavorito WHERE idContato = :idContato";
 
             $stmt = $pdo->prepare($sqlUpdateFlagFavorito);
