@@ -35,7 +35,7 @@
             }
         }
 
-        public static function resgatarDadosTarefas($chaveBusca) : array {
+        public static function resgatarDadosTarefas($chaveBusca, $filtrarTarefasConcluidas) : array {
             $pdo = Connection::conectar();
 
             if(empty($chaveBusca)) {
@@ -49,6 +49,21 @@
                     self::$paginaAtual = self::$quantidadePaginas;
                 }
 
+                if($filtrarTarefasConcluidas) {
+                    $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " WHERE statusTarefa = :statusTarefa LIMIT :offset, :limit";
+                    $stmt = $pdo->prepare($sqlSelectFrom);
+                    $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
+                    $stmt->bindValue(':limit', self::$limiteTarefasPagina, PDO::PARAM_INT);
+                    $stmt->bindValue(':statusTarefa', 1, PDO::PARAM_INT);
+    
+                    try {
+                        $stmt->execute();
+                        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    } catch (PDOException $e) {
+                        throw new RuntimeException("Erro ao buscar Tarefas: " . $e->getMessage());
+                    }
+                }
+
                 $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " ORDER BY statusTarefa DESC LIMIT :offset, :limit";
                 $stmt = $pdo->prepare($sqlSelectFrom);
                 $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
@@ -60,6 +75,7 @@
                 } catch (PDOException $e) {
                     throw new RuntimeException("Erro ao buscar Tarefas: " . $e->getMessage());
                 }
+
 
             } elseif(is_int($chaveBusca)) {
                 $stmt = $pdo->prepare("SELECT * FROM tarefas WHERE idTarefa = :id");

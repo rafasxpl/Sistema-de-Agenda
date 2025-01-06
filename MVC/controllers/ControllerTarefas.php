@@ -3,8 +3,8 @@
    
     class ControllerTarefas {
         
-        public static function resgatarDadosTarefas($chaveBusca)                  : array {
-            return ModelTarefas::resgatarDadosTarefas($chaveBusca);
+        public static function resgatarDadosTarefas($chaveBusca, $filtrarTarefasConcluidas) : array {
+            return ModelTarefas::resgatarDadosTarefas($chaveBusca, $filtrarTarefasConcluidas);
         }
 
         public static function resgatarQuantidadeTarefas()                        : int {

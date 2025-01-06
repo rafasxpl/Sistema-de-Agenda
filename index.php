@@ -13,11 +13,17 @@
             <img width="100" src="logoSistema.png" alt="Imagem de um calendário">
         </div>
         <nav>
-            <ul class="list-unstyled d-flex gap-5">
+            <ul class="list-unstyled d-flex align-items-center gap-5">
                 <li><a class="text-decoration-none text-white" href="index.php?page=home">Home</a></li>
                 <li><a class="text-decoration-none text-white" href="index.php?page=contatos">Contatos</a></li>
                 <li><a class="text-decoration-none text-white" href="index.php?page=eventos">Eventos</a></li>
-                <li><a class="text-decoration-none text-white" href="index.php?page=tarefas">Tarefas</a></li>
+                <li>
+                    <select class="form-select" name="tarefas" id="tarefas" onchange="location = this.value;">
+                        <option selected disabled>Tarefas</option>
+                        <option value="index.php?page=tarefas">Todas</option>
+                        <option value="index.php?page=tarefasConcluidas">Concluídas</option>
+                    </select>
+                </li>
             </ul>
         </nav>
     </header>
