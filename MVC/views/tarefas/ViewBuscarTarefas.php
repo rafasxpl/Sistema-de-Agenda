@@ -3,9 +3,9 @@
 
     $chaveBusca = $_POST['chaveBusca'] ?? "";
     $chaveBusca = preg_match("/[0-9]/", $chaveBusca) ? (int) $chaveBusca : (string) $chaveBusca;
-
-    $dadosTarefas = ControllerTarefas::resgatarDadosTarefas($chaveBusca);
-?>
+    
+    $dadosTarefas = ControllerTarefas::resgatarDadosTarefas($chaveBusca, null); 
+    ?>
 <section class="w-75 d-flex flex-column align-items-center pt-3 mx-auto">
     <header class="w-100 d-flex align-items-center gap-3">
         <span class="fs-2">

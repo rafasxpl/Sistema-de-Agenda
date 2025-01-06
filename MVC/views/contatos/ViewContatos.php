@@ -3,8 +3,19 @@
     
     $dadosContatos = ControllerContatos::resgatarDadosContatos(null);
 
+    if(isset($_POST['flagFavorito']) && isset($_POST['id'])) {
+        try {
+            $flagFavorito = $_POST['flagFavorito'];
+            $idContato    = $_POST['id'];
+            ControllerContatos::favoritarContato($idContato, $flagFavorito);
+        } catch(Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+
 ?>
-<section class="containerContatos w-100 h-100 d-flex flex-column align-items-center ">
+<section class="containerContatos w-100 h-100 d-flex flex-column align-items-center">
     <form class="formBuscaContatos w-75 my-3 d-flex column-gap-3" 
     action="index.php?page=buscarContatos" method="POST">
         <div class="input-group">
@@ -19,6 +30,9 @@
         <table class="table table-dark table-striped table-hover">
             <thead>
                 <tr class="table-row">
+                    <th class="table-cell align-middle text-center">
+                        <i class="fa-solid fa-star"></i>
+                    </th>
                     <th class="table-cell align-middle text-center">ID</th>
                     <th class="table-cell align-middle text-center">Nome</th>
                     <th class="table-cell align-middle text-center">E-mail</th>
@@ -31,6 +45,11 @@
             <tbody>
                 <?php foreach($dadosContatos as $content):?>
                     <tr class="table-row">
+                        <th class="table-cell align-middle text-center">
+                            <button data-id="<?= $content['idContato'] ?>" id="<?= $content['flagFavoritoContato'] ?>" class="btn btnFavoritarContato">
+                                <?=$content['flagFavoritoContato'] === 1 ? '<i class="fa-solid fa-star" style="color: #FFD43B;"></i>' : '<i class="fa-regular fa-star" style="color: #ffffff;"></i>'?>
+                            </button>
+                        </th>
                         <th class="table-cell align-middle text-center">
                             <?= $content['idContato']?>
                         </th>

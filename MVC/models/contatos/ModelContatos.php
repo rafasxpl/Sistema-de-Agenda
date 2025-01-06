@@ -188,4 +188,24 @@
                 throw new RuntimeException("Erro ao cadastrar imagem: ". $e->getMessage());
             }
         }
+
+        public static function favoritarContato($id, $flagFavorito) : void {
+            if (empty($id) || !is_numeric($id) || !is_numeric($flagFavorito)) {
+                throw new InvalidArgumentException("ID deve ser fornecido corretamente!");
+            }
+
+            $pdo = Connection::conectar();
+            
+            $sqlUpdateFlagFavorito = "UPDATE " . self::$nomeTabela . " SET flagFavoritoContato = :flagFavorito WHERE idContato = :idContato";
+
+            $stmt = $pdo->prepare($sqlUpdateFlagFavorito);
+            $stmt->bindValue(':flagFavorito', (int) $flagFavorito, PDO::PARAM_INT);
+            $stmt->bindValue(':idContato', $id, PDO::PARAM_INT);
+
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                throw new RuntimeException("Erro ao favoritar contato: " . $e->getMessage());
+            }
+        }
     }
