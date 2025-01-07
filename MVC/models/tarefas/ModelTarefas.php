@@ -61,8 +61,7 @@
             }
 
             try {
-                // $stmt->execute();
-                return $dadosTarefa;
+                $stmt->execute();
             } catch(PDOException $e) {
                 throw new RuntimeException("Erro ao cadastrar dados: ". $e->getMessage());
             }

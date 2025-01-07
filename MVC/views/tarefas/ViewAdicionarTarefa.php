@@ -11,10 +11,10 @@
         $sla = ControllerTarefas::criarTarefa([
             "tituloTarefa"        => $_POST['tituloTarefa']        ?? '',
             "descricaoTarefa"     => $_POST['descricaoTarefa']     ?? '',
-            "dataConclusaoTarefa" => $_POST['dataConclusaoTarefa'] ?? '',
+            "dataConclusaoTarefa" => $dataConclusaoTarefaFormatada ?? '',
             "horaConclusaoTarefa" => $_POST['horaConclusaoTarefa'] ?? '',
             "dataLembreteTarefa"  => $dataLembreteTarefaFormatada  ?? '',
-            "horaLembreteTarefa"  => $dataLembreteTarefaFormatada  ?? '',
+            "horaLembreteTarefa"  => $_POST['horaLembreteTarefa']  ?? '',
             "recorrenciaTarefa"   => $_POST['recorrenciaTarefa']   ?? '',
             "statusTarefa"        => 0
         ]);
@@ -75,8 +75,11 @@
                 <div>
                     <label for="recorrenciaTarefa" class="d-block form-label mt-2" for="">Recorrência</label>
                     <select class="form-select" name="recorrenciaTarefa" id="recorrenciaTarefa">
-                        <option value="Recorrente">Recorrente</option>
-                        <option value="Não recorrene">Não recorrente</option>
+                        <option value="0">Não recorrente</option>
+                        <option value="1">Diariamente</option>
+                        <option value="2">Semanalmente</option>
+                        <option value="3">Mensalmente</option>
+                        <option value="3">Anualmente</option>
                     </select>
                 </div>
             </div>
