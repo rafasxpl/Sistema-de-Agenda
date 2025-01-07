@@ -41,7 +41,7 @@
     <script src="js/excluirContato.js"></script>
     <script src="js/excluirTarefa.js"></script>
     <script src="js/hideShowElements.js"></script>
-    <script src="js/checkBoxTarefas.js"></script>
+    <script src="js/alterarStatus.js"></script>
     <script src="js/favoritarContato.js"></script>
     <script src="https://kit.fontawesome.com/fd7710791c.js" crossorigin="anonymous"></script>
 </body>
