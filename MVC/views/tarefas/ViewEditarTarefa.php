@@ -26,7 +26,7 @@
 <section class="w-100 d-flex flex-column align-items-center">
     <header class="w-75 my-3 d-flex align-items-center gap-3">
         <span class="fs-2">
-            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-pen-to-square"></i>
         </span>
         <h1 class="align-self-center fs-2 my-0 text-white">Editar Tarefa</h1>
     </header>
