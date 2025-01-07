@@ -1,1 +1,0 @@
-resgatar o status da tarefa e colocar um checkbox de concluido ou não
