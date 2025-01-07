@@ -16,7 +16,13 @@
             <ul class="list-unstyled d-flex align-items-center gap-5">
                 <li><a class="text-decoration-none text-white" href="index.php?page=home">Home</a></li>
                 <li><a class="text-decoration-none text-white" href="index.php?page=contatos">Contatos</a></li>
-                <li><a class="text-decoration-none text-white" href="index.php?page=eventos">Eventos</a></li>
+                <li>
+                    <select class="form-select" name="eventos" id="eventos" onchange="location = this.value;">
+                        <option selected disabled>Eventos</option>
+                        <option value="index.php?page=eventos">Todos</option>
+                        <option value="index.php?page=eventosConcluidos">Concluídos</option>
+                    </select>
+                </li>
                 <li>
                     <select class="form-select" name="tarefas" id="tarefas" onchange="location = this.value;">
                         <option selected disabled>Tarefas</option>
