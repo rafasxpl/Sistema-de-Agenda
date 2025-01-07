@@ -15,4 +15,10 @@
         "adicionarContatos" => "/MVC/views/contatos/ViewAdicionarContatos.php",
         "editarContatos"    => "/MVC/views/contatos/ViewEditarContatos.php",
         "excluirContatos"   => "/MVC/views/contatos/ViewExcluirContatos.php",
+
+        "eventos"           => "/MVC/views/eventos/ViewEventos.php",
+        "buscarEventos"     => "/MVC/views/eventos/ViewBuscarEventos.php",
+        "editarEventos"     => "/MVC/views/eventos/ViewEditarEventos.php",
+        "adicionarEventos"  => "/MVC/views/eventos/ViewAdicionarEventos.php",
+        "eventosConcluidos" => "/MVC/views/eventos/ViewEventosConcluidos.php",
     ];
