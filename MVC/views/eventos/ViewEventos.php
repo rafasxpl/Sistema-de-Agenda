@@ -56,7 +56,7 @@
                             <?= $content['horaFimEvento'] ?>
                         </th>
                         <th class="table-cell align-middle text-center">
-                            <a class="btn btn-primary" href="index.php?page=editarEvento&id=<?= $content['idEvento']?>">
+                            <a class="btn btn-primary" href="index.php?page=editarEventos&id=<?= $content['idEvento']?>">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         </th>
