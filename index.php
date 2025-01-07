@@ -38,8 +38,7 @@
         ?>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/excluirContato.js"></script>
-    <script src="js/excluirTarefa.js"></script>
+    <script src="js/excluirDados.js"></script>
     <script src="js/hideShowElements.js"></script>
     <script src="js/alterarStatus.js"></script>
     <script src="js/favoritarContato.js"></script>
