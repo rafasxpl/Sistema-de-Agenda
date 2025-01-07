@@ -1,5 +1,6 @@
 <?php
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerTarefas.php";
+    date_default_timezone_set('America/Sao_Paulo');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dataConclusaoTarefa = date_create($_POST['dataConclusaoTarefa'] ?? null);
@@ -12,9 +13,9 @@
             "tituloTarefa"        => $_POST['tituloTarefa']        ?? '',
             "descricaoTarefa"     => $_POST['descricaoTarefa']     ?? '',
             "dataConclusaoTarefa" => $dataConclusaoTarefaFormatada ?? '',
-            "horaConclusaoTarefa" => $_POST['horaConclusaoTarefa'] ?? '',
+            "horaConclusaoTarefa" => $_POST['horaConclusaoTarefa'] ?? date("H:i:s"),
             "dataLembreteTarefa"  => $dataLembreteTarefaFormatada  ?? '',
-            "horaLembreteTarefa"  => $_POST['horaLembreteTarefa']  ?? '',
+            "horaLembreteTarefa"  => $_POST['horaLembreteTarefa']  ?? date("H:i:s"),
             "recorrenciaTarefa"   => $_POST['recorrenciaTarefa']   ?? '',
             "statusTarefa"        => 0
         ]);
@@ -52,22 +53,22 @@
                                 <span class="input-group-text">
                                     <i class="fa-solid fa-clock"></i>
                                 </span>
-                                <input class="form-control" type="time" name="horaConclusaoTarefa" id="horaConclusaoTarefa">
+                                <input class="form-control" type="time" name="horaConclusaoTarefa" id="horaConclusaoTarefa" value="<?= date("H:i:s") ?>">
                             </div>
                         </div>
                     </div>
                     <div class="d-flex gap-3">
                         <div class="w-50">
-                            <label for="dataConclusao" class="d-block form-label mt-2" for="">Data de Lembrete</label>
+                            <label for="dataConclusao" class="d-block form-label mt-2">Data de Lembrete</label>
                             <input class="form-control" type="date" name="dataLembreteTarefa" id="dataConclusao">
                         </div>
                         <div class="w-50">
-                            <label for="horaConclusaoTarefa" class="d-block form-label mt-2" for="">Hora do Lembrete</label>
+                            <label for="horaConclusaoTarefa" class="d-block form-label mt-2">Hora do Lembrete</label>
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fa-solid fa-clock"></i>
                                 </span>
-                                <input class="form-control" type="time" name="horaLembreteTarefa" id="horaConclusaoTarefa">
+                                <input class="form-control" type="time" name="horaLembreteTarefa" id="horaConclusaoTarefa" value="<?= date("H:i:s") ?>">
                             </div>
                         </div>
                     </div>
@@ -88,7 +89,4 @@
             <button class="btn btn-success w-100" type="submit">Adicionar</button>
         </div>
     </form>
-    <?php 
-        var_dump($sla)
-    ?>
 </section>
