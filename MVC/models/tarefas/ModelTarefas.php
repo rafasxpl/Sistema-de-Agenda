@@ -35,6 +35,39 @@
             }
         }
 
+        public static function criarTarefa($dadosTarefa) {
+            if(empty($dadosTarefa)) {
+                throw new Exception("Dados da tarefa não informados");
+            }
+
+            $pdo = Connection::conectar();
+
+            $sqlInsert     = "INSERT INTO " . self::$nomeTabela;
+            $nomeCampos    = [];
+            $valoresCampos = [];
+
+            foreach ($dadosTarefa as $chave => $valor) {
+                $nomeCampos[]    = $chave;
+                $valoresCampos[] = ":$chave";
+            }
+            
+            $nomeCamposStr    = implode(", ", $nomeCampos);
+            $valoresCamposStr = implode(", ", $valoresCampos);
+            
+            $stmt = $pdo->prepare("$sqlInsert ($nomeCamposStr) VALUES ($valoresCamposStr)");
+
+            foreach ($dadosTarefa as $chaveValor => $valor) {
+                $stmt->bindValue(":$chaveValor", $valor, $tipoValores[$chaveValor] ?? PDO::PARAM_STR);
+            }
+
+            try {
+                // $stmt->execute();
+                return $dadosTarefa;
+            } catch(PDOException $e) {
+                throw new RuntimeException("Erro ao cadastrar dados: ". $e->getMessage());
+            }
+        }
+
         public static function resgatarDadosTarefas($chaveBusca, $filtrarTarefasConcluidas) : array {
             $pdo = Connection::conectar();
 

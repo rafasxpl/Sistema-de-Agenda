@@ -34,4 +34,8 @@
         public static function excluirTarefa($id)                                   :void {
             ModelTarefas::excluirTarefa($id);
         }
+
+        public static function criarTarefa($dadosTarefa) {
+            ModelTarefas::criarTarefa($dadosTarefa);
+        }
     }
