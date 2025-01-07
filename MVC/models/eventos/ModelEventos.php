@@ -96,7 +96,11 @@
                     }
                 }
 
-                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " ORDER BY statusEvento DESC LIMIT :offset, :limit";
+                $sqlSelectFromAll = "SELECT * FROM " . self::$nomeTabela . " ORDER BY statusEvento ASC LIMIT :offset, :limit";
+                $sqlChaveBusca    = "SELECT * FROM " . self::$nomeTabela . " WHERE tituloEvento LIKE :chaveBusca ORDER BY statusEvento ASC LIMIT :offset, :limit";
+
+                $sqlSelectFrom = empty($chaveBusca) ? $sqlSelectFromAll : $sqlComChaveBusca;
+
                 $stmt = $pdo->prepare($sqlSelectFrom);
                 $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
                 $stmt->bindValue(':limit', self::$limiteEventosPagina, PDO::PARAM_INT);
@@ -120,19 +124,6 @@
                     throw new RuntimeException("Erro ao buscar Evento: " . $e->getMessage());
                 }
             } 
-
-            $sqlLike = "SELECT * FROM " . self::$nomeTabela . " WHERE tituloEvento LIKE :chaveBusca ORDER BY statusEvento DESC LIMIT :offset, :limit";
-            $stmt = $pdo->prepare($sqlLike);
-            $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
-            $stmt->bindValue(':limit', self::$limiteEventosPagina, PDO::PARAM_INT);
-            $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%", PDO::PARAM_STR);
-
-            try {
-                $stmt->execute();
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-                throw new RuntimeException("Erro ao buscar Eventos: " . $e->getMessage());
-            }
         }
 
         public static function concluirEvento($status, $idEvento) : void {

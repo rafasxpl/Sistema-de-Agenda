@@ -96,7 +96,7 @@
                     }
                 }
 
-                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " ORDER BY statusTarefa DESC LIMIT :offset, :limit";
+                $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " ORDER BY statusTarefa ASC LIMIT :offset, :limit";
                 $stmt = $pdo->prepare($sqlSelectFrom);
                 $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
                 $stmt->bindValue(':limit', self::$limiteTarefasPagina, PDO::PARAM_INT);
