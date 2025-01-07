@@ -67,7 +67,7 @@
             }
         }
 
-        public static function resgatarDadosEventos($chaveBusca, $filtrarEventosConcluidas) : array {
+        public static function resgatarDadosEventos($chaveBusca, $filtrarEventosConcluidos) : array {
             $pdo = Connection::conectar();
 
             if(empty($chaveBusca)) {
@@ -81,7 +81,7 @@
                     self::$paginaAtual = self::$quantidadePaginas;
                 }
 
-                if($filtrarEventosConcluidas) {
+                if($filtrarEventosConcluidos) {
                     $sqlSelectFrom = "SELECT * FROM " . self::$nomeTabela . " WHERE statusEvento = :statusEvento LIMIT :offset, :limit";
                     $stmt = $pdo->prepare($sqlSelectFrom);
                     $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
@@ -121,10 +121,11 @@
                 }
             } 
 
-            $sqlLike = "SELECT * FROM eventos WHERE tituloEvento LIKE :chaveBusca";
-
+            $sqlLike = "SELECT * FROM " . self::$nomeTabela . " WHERE tituloEvento LIKE :chaveBusca ORDER BY statusEvento DESC LIMIT :offset, :limit";
             $stmt = $pdo->prepare($sqlLike);
-            $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%");
+            $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', self::$limiteEventosPagina, PDO::PARAM_INT);
+            $stmt->bindValue(':chaveBusca', "%{$chaveBusca}%", PDO::PARAM_STR);
 
             try {
                 $stmt->execute();
