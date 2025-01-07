@@ -13,9 +13,9 @@
             "tituloTarefa"        => $_POST['tituloTarefa']        ?? '',
             "descricaoTarefa"     => $_POST['descricaoTarefa']     ?? '',
             "dataConclusaoTarefa" => $dataConclusaoTarefaFormatada ?? '',
-            "horaConclusaoTarefa" => $_POST['horaConclusaoTarefa'] ?? date("H:i:s"),
+            "horaConclusaoTarefa" => $_POST['horaConclusaoTarefa'] ?? '',
             "dataLembreteTarefa"  => $dataLembreteTarefaFormatada  ?? '',
-            "horaLembreteTarefa"  => $_POST['horaLembreteTarefa']  ?? date("H:i:s"),
+            "horaLembreteTarefa"  => $_POST['horaLembreteTarefa']  ?? '',
             "recorrenciaTarefa"   => $_POST['recorrenciaTarefa']   ?? '',
             "statusTarefa"        => 0
         ]);
@@ -48,7 +48,7 @@
                             <input class="form-control" type="date" name="dataConclusaoTarefa" id="dataConclusao">
                         </div>
                         <div class="w-50">
-                            <label for="horaConclusaoTarefa" class="d-block form-label mt-2" for="">Hora de Conclusão</label>
+                            <label for="horaConclusaoTarefa" class="d-block form-label mt-2">Hora de Conclusão</label>
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fa-solid fa-clock"></i>
@@ -56,7 +56,7 @@
                                 <input class="form-control" type="time" name="horaConclusaoTarefa" id="horaConclusaoTarefa" value="<?= date("H:i:s") ?>">
                             </div>
                         </div>
-                    </div>
+                    </div>  
                     <div class="d-flex gap-3">
                         <div class="w-50">
                             <label for="dataConclusao" class="d-block form-label mt-2">Data de Lembrete</label>
