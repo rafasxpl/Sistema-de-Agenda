@@ -51,7 +51,7 @@
             $sqlSelectFromAll = "SELECT * FROM " . self::$nomeTabela . " ORDER BY flagFavoritoContato DESC LIMIT :offset, :limit";
             $sqlChaveBusca    = "SELECT * FROM " . self::$nomeTabela . " WHERE nomeContato LIKE :chaveBusca ORDER BY flagFavoritoContato DESC LIMIT :offset, :limit";
 
-            $sqlSelectFrom = empty($chaveBusca) ? $sqlSelectFromAll : $sqlComChaveBusca;
+            $sqlSelectFrom = empty($chaveBusca) ? $sqlSelectFromAll : $sqlChaveBusca;
 
             $stmt = $pdo->prepare($sqlSelectFrom);
             $stmt->bindValue(':offset', self::$paginaInicial, PDO::PARAM_INT);
