@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerTarefas.php";
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/tarefas/ControllerTarefas.php";
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/config.php";
 
     $id = isset($_GET['id']) ? (int) $_GET['id'] : null;

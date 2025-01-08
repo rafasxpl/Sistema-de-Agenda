@@ -61,7 +61,7 @@
     </form>
 </section>
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerContatos.php";
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/contatos/ControllerContatos.php";
 
     if(isset($_POST['cadastrarNascimento']) || isset($_POST['cadastrarNome']) || isset($_POST['cadastrarEmail']) || isset($_POST['cadastrarSexo']) || isset($_POST['cadastrarContato'])) {
 

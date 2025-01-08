@@ -1,13 +1,13 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerTarefas.php";
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/tarefas/ControllerTarefas.php";
 
     $chaveBusca = $_POST['chaveBusca'] ?? "";
     $chaveBusca = preg_match("/[0-9]/", $chaveBusca) ? (int) $chaveBusca : (string) $chaveBusca;
     
     $dadosTarefas = ControllerTarefas::resgatarDadosTarefas($chaveBusca, null); 
     ?>
-<section class="w-75 d-flex flex-column align-items-center pt-3 mx-auto">
-    <header class="w-100 d-flex align-items-center gap-3">
+<section class="w-75 d-flex flex-column align-items-center mx-auto">
+    <header class="w-100 d-flex align-items-center gap-3 py-3">
         <span class="fs-2">
             <i class="fa-solid fa-magnifying-glass"></i>
         </span>

@@ -1,5 +1,5 @@
 <?php
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/ControllerEventos.php";
+    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/eventos/ControllerEventos.php";
     date_default_timezone_set('America/Sao_Paulo');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,7 +26,7 @@
         </span>
         <h1 class="align-self-center fs-2 my-0 text-white">Adicionar Eventos</h1>
     </header>
-    <form class="w-75 d-flex flex-column align-items-center gap-3" action="" method="POST">
+    <form class="w-100 d-flex flex-column align-items-center gap-3" action="" method="POST">
         <div class="d-flex flex-column justify-content-center align-items-center gap-5 w-100">
             <div class="w-75">
                 <div>
