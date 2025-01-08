@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,12 +9,12 @@
     <title>Agenda</title>
 </head>
 <body class="h-100">
-    <header class="d-flex justify-content-around align-items-center p-3 bg-dark">
-        <div class="logo">
-            <img width="100" src="logoSistema.png" alt="Imagem de um calendário">
+    <header class="d-flex justify-content-around align-items-center py-3 bg-dark">
+        <div class="logo w-25 mx-auto">
+            <i class="fs-1 fa-regular fa-clock" style="color: #ffffff;"></i>
         </div>
-        <nav>
-            <ul class="list-unstyled d-flex align-items-center gap-5">
+        <nav class="d-flex align-items-center justify-content-around gap-5 w-50">
+            <ul class="list-unstyled d-flex align-items-center gap-5 my-0">
                 <li><a class="text-decoration-none text-white" href="index.php?page=home">Home</a></li>
                 <li><a class="text-decoration-none text-white" href="index.php?page=contatos">Contatos</a></li>
                 <li>
@@ -30,17 +31,31 @@
                         <option value="index.php?page=tarefasConcluidas">Concluídas</option>
                     </select>
                 </li>
-            </ul>
+                </ul>
+                <div>
+                    <button class="btnLogout btn btn-transparent d-flex align-items-center gap-3">
+                        <i class="fs-4 fa-solid fa-right-from-bracket" style="color: #ffffff;"></i>
+                        <span class="text-white">
+                            <?= isset($_SESSION['nomeUsuario']) && !empty($_SESSION['nomeUsuario']) ? $_SESSION['nomeUsuario'] : null ?>
+                        </span>
+                    </button>
+                </div>
         </nav>
     </header>
     <main class="bg-secondary vh-100">
         <?php
             require_once "routes/routes.php";
 
-            $page = isset($_GET['page']) ? $_GET['page'] : null;
-            $page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
-            
-            !array_key_exists($page, $routes) ? header('Location: 404/404.php') : require_once __DIR__ . $routes[$page];
+            if(isset($_SESSION['login']) && $_SESSION['login'] == true) {
+                $page = isset($_GET['page']) ? $_GET['page'] : null;
+                $page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
+                
+                !array_key_exists($page, $routes) ? header('Location: 404/404.php') : require_once __DIR__ . $routes[$page];
+            } else {
+                header("Location: acount/pageLogin.php");
+                exit();
+            }
+
         ?>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -48,6 +63,7 @@
     <script src="js/hideShowElements.js"></script>
     <script src="js/alterarStatus.js"></script>
     <script src="js/favoritarContato.js"></script>
+    <script src="js/logout.js"></script>
     <script src="https://kit.fontawesome.com/fd7710791c.js" crossorigin="anonymous"></script>
 </body>
 </html>
