@@ -65,7 +65,7 @@
     </div>
     <div class="paginasContatos d-flex justify-content-around align-items-center gap-4 bg-light-subtle p-3 w-75">
     <?php 
-        $quantidadeRegistroEvento   = ControllerEventos::resgatarQuantidadeEventos();
+        $quantidadeRegistroEventos  = ControllerEventos::resgatarQuantidadeEventos();
         $intervaloPaginas           = ControllerEventos::getLimiteEventosPagina();
         $paginaAtual                = ControllerEventos::getPaginaAtual();
         $quantidadePaginas          = ControllerEventos::getQuantidadePaginas();
@@ -77,13 +77,13 @@
         if ($blocoAtual > 1): 
             $paginaAnterior = $paginaInicio - 1;
         ?>
-            <a class="paginaEvento text-decoration-none text-primary fs-6" href="index.php?page=evento&idPaginaEvento=1">« Primeira Página</a>
-            <a class="paginaEvento text-decoration-none text-primary fs-6" href="index.php?page=evento&idPaginaEvento=<?= $paginaAnterior ?>">« Anterior</a>
+            <a class="paginaEvento text-decoration-none text-primary fs-6" href="index.php?page=eventos&idPaginaEvento=1">« Primeira Página</a>
+            <a class="paginaEvento text-decoration-none text-primary fs-6" href="index.php?page=eventos&idPaginaEvento=<?= $paginaAnterior ?>">« Anterior</a>
         <?php endif; ?>
 
         <?php for ($i = $paginaInicio; $i <= $paginaFim; $i++): ?>
             <a class="paginaEvento text-decoration-none text-primary <?= $i == $paginaAtual ? 'paginaAtiva' : '' ?>" 
-            href="index.php?page=evento&idPaginaEvento=<?= $i ?>">
+            href="index.php?page=eventos&idPaginaEvento=<?= $i ?>">
                 <?= $i ?>
             </a>
         <?php endfor; ?>
@@ -91,8 +91,8 @@
         <?php if ($paginaFim < $quantidadePaginas): 
             $paginaProxima = $paginaFim + 1;
         ?>
-            <a class="paginaEvento text-decoration-none text-primary" href="index.php?page=evento&idPaginaEvento=<?= $paginaProxima ?>">Próximo »</a>
-            <a class="paginaEvento text-decoration-none text-primary" href="index.php?page=evento&idPaginaEvento=<?= $quantidadePaginas ?>">UltimaPagina »</a>
+            <a class="paginaEvento text-decoration-none text-primary" href="index.php?page=eventos&idPaginaEvento=<?= $paginaProxima ?>">Próximo »</a>
+            <a class="paginaEvento text-decoration-none text-primary" href="index.php?page=eventos&idPaginaEvento=<?= $quantidadePaginas ?>">UltimaPagina »</a>
         <?php endif; ?>
 </div>  
 </section>

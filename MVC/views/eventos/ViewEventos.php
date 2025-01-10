@@ -101,5 +101,5 @@
             <a class="paginaEvento text-decoration-none text-primary" href="index.php?page=eventos&idPaginaEvento=<?= $paginaProxima ?>">Próximo »</a>
             <a class="paginaEvento text-decoration-none text-primary" href="index.php?page=eventos&idPaginaEvento=<?= $quantidadePaginas ?>">UltimaPagina »</a>
         <?php endif; ?>
-</div>  
+    </div>  
 </section>

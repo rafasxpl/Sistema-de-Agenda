@@ -1,6 +1,5 @@
 <?php 
     require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/contatos/ControllerContatos.php";
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/config.php";
 
     $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
     $informacoesContato = ControllerContatos::resgatarDadosContatos($id)[0];

@@ -25,14 +25,14 @@
                             <i class="fa-solid fa-person"></i>
                         </span>
                         <label for="cadastrarSexoMasculino">masculino</label>
-                        <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="M">
+                        <input type="radio" id="cadastrarSexoMasculino" name="cadastrarSexo" value="Masculino">
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <span class="form-label my-0 fs-3" for="cadastrarSexoFeminino">
                             <i class="fa-solid fa-person-dress"></i>
                         </span>
                         <label for="cadastrarSexoFeminino">feminino</label>
-                        <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="F">
+                        <input type="radio" id="cadastrarSexoFeminino" name="cadastrarSexo" value="Feminino">
                     </div>
                 </div>
             </div>
