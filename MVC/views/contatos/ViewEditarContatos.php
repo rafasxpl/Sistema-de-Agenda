@@ -13,10 +13,10 @@
         $dataNascimentoFormatada  = date_format($dataNascimento, 'Y-m-d');
 
         ControllerContatos::atualizarInformacoesContatos([
-                "nomeContato"           =>  $dados['atualizarNome']     ?? null,
-                "emailContato"          =>  $dados['atualizarEmail']    ?? null,
+                "nomeContato"           =>  htmlspecialchars($dados['atualizarNome'])     ?? null,
+                "emailContato"          =>  htmlspecialchars($dados['atualizarEmail'])    ?? null,
                 "sexoContato"           =>  $dados['atualizarSexo']     ?? null,
-                "telefoneContato"       =>  $dados['atualizarContato']  ?? null,
+                "telefoneContato"       =>  htmlspecialchars($dados['atualizarContato'])  ?? null,
                 "dataNascimentoContato" =>  $dataNascimentoFormatada    ?? null,
             ],
             $id

@@ -10,8 +10,8 @@
         $dataLembreteTarefaFormatada  = date_format($dataLembreteTarefa, 'Y-m-d');
 
         $sla = ControllerTarefas::criarTarefa([
-            "tituloTarefa"        => $_POST['tituloTarefa']        ?? '',
-            "descricaoTarefa"     => $_POST['descricaoTarefa']     ?? '',
+            "tituloTarefa"        => htmlspecialchars($_POST['tituloTarefa'])        ?? '',
+            "descricaoTarefa"     => htmlspecialchars($_POST['descricaoTarefa'])     ?? '',
             "dataConclusaoTarefa" => $dataConclusaoTarefaFormatada ?? '',
             "horaConclusaoTarefa" => $_POST['horaConclusaoTarefa'] ?? '',
             "dataLembreteTarefa"  => $dataLembreteTarefaFormatada  ?? '',

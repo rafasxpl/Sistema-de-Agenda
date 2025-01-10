@@ -8,7 +8,7 @@
     }
 
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nomeUsuario']) && isset($_POST['senhaUsuario'])) {
-        $nomeUsuario = $_POST['nomeUsuario'];
+        $nomeUsuario = htmlspecialchars($_POST['nomeUsuario']);
         $senhaUsuario = $_POST['senhaUsuario'];
 
         $sucessoCriarUsuario = ControllerAuth::criarUsuario($nomeUsuario, $senhaUsuario);

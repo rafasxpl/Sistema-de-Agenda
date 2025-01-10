@@ -6,8 +6,8 @@
 
     function updateInformacoesTarefa($dados, $id) {
         ControllerTarefas::atualizarInformacoesTarefa([
-                "tituloTarefa"          =>  $dados['atualizarTitulo']        ?? null,
-                "descricaoTarefa"       =>  $dados['atualizarDescricao']     ?? null,
+                "tituloTarefa"          =>  htmlspecialchars($dados['atualizarTitulo'])        ?? null,
+                "descricaoTarefa"       =>  htmlspecialchars($dados['atualizarDescricao'])     ?? null,
                 "dataConclusaoTarefa"   =>  $dados['atualizarDataConclusao'] ?? null,
                 "horaConclusaoTarefa"   =>  $dados['atualizarHoraConclusao'] ?? null,
                 "statusTarefa"          =>  $dados['atualizarStatus']        ?? null,

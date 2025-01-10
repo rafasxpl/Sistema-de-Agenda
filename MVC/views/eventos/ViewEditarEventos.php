@@ -6,8 +6,8 @@
 
     function updateInformacoesEvento($dados, $id) {
         ControllerEventos::atualizarInformacoesEvento([
-                "tituloEvento"    =>  $dados['atualizarTitulo']        ?? null,
-                "descricaoEvento" =>  $dados['atualizarDescricao']     ?? null,
+                "tituloEvento"    =>  htmlspecialchars($dados['atualizarTitulo'])        ?? null,
+                "descricaoEvento" =>  htmlspecialchars($dados['atualizarDescricao'])     ?? null,
                 "dataFimEvento"   =>  $dados['atualizarDataConclusao'] ?? null,
                 "horaFimEvento"   =>  $dados['atualizarHoraConclusao'] ?? null
             ],

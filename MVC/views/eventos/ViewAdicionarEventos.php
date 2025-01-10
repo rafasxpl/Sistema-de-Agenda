@@ -9,8 +9,8 @@
         $dataFimEventoFormatada     = date_format($dataFimEvento, 'Y-m-d');
 
         ControllerEventos::criarEvento([
-            "tituloEvento"        => $_POST['tituloEvento']        ?? '',
-            "descricaoEvento"     => $_POST['descricaoEvento']     ?? '',
+            "tituloEvento"        => htmlspecialchars($_POST['tituloEvento'])        ?? '',
+            "descricaoEvento"     => htmlspecialchars($_POST['descricaoEvento'])     ?? '',
             "dataInicioEvento"    => $dataInicioEventoFormatada    ?? '',
             "horaInicioEvento"    => $_POST['horaInicioEvento']  ?? '',
             "dataFimEvento"       => $dataFimEventoFormatada       ?? '',

@@ -70,10 +70,10 @@
 
         ControllerContatos::cadastrarContato( 
             [
-                "nomeContato"           =>  $_POST['cadastrarNome']     ?? null,
-                "emailContato"          =>  $_POST['cadastrarEmail']    ?? null,
+                "nomeContato"           =>  htmlspecialchars($_POST['cadastrarNome'])     ?? null,
+                "emailContato"          =>  htmlspecialchars($_POST['cadastrarEmail'])    ?? null,
                 "sexoContato"           =>  $_POST['cadastrarSexo']     ?? null,
-                "telefoneContato"       =>  $_POST['cadastrarContato']  ?? null,
+                "telefoneContato"       =>  htmlspecialchars($_POST['cadastrarContato'])  ?? null,
                 "dataNascimentoContato" =>  $dataNascimentoFormatada    ?? null,
             ],  
             [
