@@ -1,8 +1,6 @@
 <?php 
     $routes = [
         ""                  => "/index.php",
-        "home"              => "/MVC/views/ViewHome.php",
-        "eventos"           => "/MVC/views/eventos/ViewEventos.php",
 
         "tarefas"           => "/MVC/views/tarefas/ViewTarefas.php",
         "buscarTarefas"     => "/MVC/views/tarefas/ViewBuscarTarefas.php",
