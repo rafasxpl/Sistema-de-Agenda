@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/contatos/ControllerContatos.php";
+    require_once __DIR__ . "../../../controllers/contatos/ControllerContatos.php";
     
     $dadosContatos = ControllerContatos::resgatarDadosContatos(null);
 

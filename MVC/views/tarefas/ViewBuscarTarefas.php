@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/tarefas/ControllerTarefas.php";
+    require_once __DIR__ . "../../../controllers/tarefas/ControllerTarefas.php";
 
     $chaveBusca = $_POST['chaveBusca'] ?? "";
     $chaveBusca = preg_match("/[0-9]/", $chaveBusca) ? (int) $chaveBusca : (string) $chaveBusca;

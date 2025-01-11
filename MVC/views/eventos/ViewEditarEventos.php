@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/eventos/ControllerEventos.php";
+    require_once __DIR__ . "../../../controllers/eventos/ControllerEventos.php";
 
     $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
     $informacoesEvento = ControllerEventos::resgatarDadosEventos($id, false)[0];

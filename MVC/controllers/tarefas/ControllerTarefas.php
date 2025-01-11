@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/tarefas/ModelTarefas.php";
+    require_once __DIR__ . "../../../models/tarefas/ModelTarefas.php";
    
     class ControllerTarefas {
         

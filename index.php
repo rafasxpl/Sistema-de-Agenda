@@ -15,7 +15,6 @@
         </div>
         <nav class="d-flex align-items-center justify-content-around gap-5 w-50">
             <ul class="list-unstyled d-flex align-items-center gap-5 my-0">
-                <li><a class="text-decoration-none text-white" href="index.php?page=home">Home</a></li>
                 <li><a class="text-decoration-none text-white" href="index.php?page=contatos">Contatos</a></li>
                 <li>
                     <select class="form-select" name="eventos" id="eventos" onchange="location = this.value;">

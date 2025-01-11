@@ -1,5 +1,5 @@
 <?php
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/tarefas/ControllerTarefas.php";
+    require_once __DIR__ . "../../../controllers/tarefas/ControllerTarefas.php";
     date_default_timezone_set('America/Sao_Paulo');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

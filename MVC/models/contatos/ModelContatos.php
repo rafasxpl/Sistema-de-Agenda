@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/Connection.php";
+    require_once __DIR__ . "../../../models/Connection.php";
     
     class ModelContatos {
         private static string $nomeTabela        = "contatos";
@@ -94,7 +94,7 @@
 
         public static function atualizarInformacoesContatos($matrizDeValores, $id) : void {
             if (!$matrizDeValores || !$id || !is_numeric($id)) {
-            throw new InvalidArgumentException("A matriz de valores e um ID válido devem ser fornecidos!");
+                throw new InvalidArgumentException("A matriz de valores e um ID válido devem ser fornecidos!");
             }
 
             $pdo = Connection::conectar();
@@ -103,7 +103,7 @@
             $colunaValor = [];
 
             foreach ($matrizDeValores as $chave => $valor) {
-            $colunaValor[] = "$chave = :$chave";
+                $colunaValor[] = "$chave = :$chave";
             }
 
             $sqlUpdate .= implode(", ", $colunaValor) . " WHERE idContato = :id";

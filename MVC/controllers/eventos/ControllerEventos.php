@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/eventos/ModelEventos.php";
+    require_once __DIR__ . "../../../models/eventos/ModelEventos.php";
    
     class ControllerEventos {
         

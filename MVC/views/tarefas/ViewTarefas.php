@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/controllers/tarefas/ControllerTarefas.php";
+    require_once __DIR__ . "../../../controllers/tarefas/ControllerTarefas.php";
     
     $dadosTarefas = ControllerTarefas::resgatarDadosTarefas(null, false);
 

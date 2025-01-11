@@ -1,5 +1,5 @@
 <?php 
-    require_once "/opt/lampp/htdocs/Sistema-de-Agenda/MVC/models/Connection.php";
+    require_once __DIR__ . "../../../models/Connection.php";
 
     class ModelAuth {
         private static string $nomeTabela = "usuarios";

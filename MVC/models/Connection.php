@@ -28,19 +28,6 @@
             return self::$conn;
         }
 
-        public static function resgatarDadosTabela($nomeTabela) : array | string {
-            $pdo = self::conectar();
-
-            if($nomeTabela !== null) {
-                $stmt = $pdo->prepare("SELECT * FROM {$nomeTabela}");
-                $stmt->execute();
-    
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            }
-
-            return "Nome da tabela não informado";
-        }
-
         public static function executarQuerySql($querySql) : array {
             $pdo = self::conectar();
 
@@ -52,74 +39,5 @@
             }
 
             return "Query SQL não informada";
-        }
-
-        public static function cadastrarInformacaoTabela($nomeTabela = null, $matrizDeValores = null, $tipoValores = null) {
-            if(!$nomeTabela || !$matrizDeValores) {
-                die("Nome da tabela e a matriz de valores devem ser fornecidos!");
-            }
-
-            $pdo = self::conectar();
-
-            $sqlInsert     = "INSERT INTO";
-            $nomeCampos    = null;
-            $valoresCampos = null;
-
-            foreach ($matrizDeValores as $chave => $valor) {
-                $valoresCampos .=   ":". $chave . ",";
-                $nomeCampos    .=  $chave . ",";     
-            }
-            
-            $nomeCampos    = trim($nomeCampos, ",");
-            $valoresCampos = trim($valoresCampos, ",");
-            
-            $stmt = $pdo->prepare(($sqlInsert . " " . $nomeTabela . " (". $nomeCampos .")" . " VALUES " . "(" . $valoresCampos . ")"));
-
-            if ($tipoValores) {
-                foreach ($matrizDeValores as $chaveValor => $valor) {
-                    $stmt->bindValue(":$chaveValor" ?? "", $valor, $tipoValores[$chaveValor] ?? PDO::PARAM_STR);
-                }
-            } else {
-                foreach ($matrizDeValores as $chaveValor => $valor) {
-                    $stmt->bindValue(":$chaveValor" ?? "", $valor);
-                }
-            }
-
-            try {
-                $stmt->execute();
-            } catch(PDOException $e) {
-                die("Erro ao cadastrar dados: ". $e->getMessage());
-            }
-        }
-
-        public static function atualizarInformacaoTabela($nomeTabela = null, $matrizDeValores = null, $id) {
-            $pdo = self::conectar();
-
-            if(!$nomeTabela || !$matrizDeValores || !$id) {
-                die("Nome da tabela, a matriz de valores e o ID devem ser fornecidos!");
-            }
-
-            $sqlUpdate = "UPDATE $nomeTabela SET ";
-            $colunaValor = "";
-
-            foreach ($matrizDeValores as $chave => $valor) {
-                $colunaValor .= $chave . " = ". "'". $valor ."'" . ",";
-            }
-
-            $colunaValor = trim($colunaValor, ",");
-
-            $sqlUpdate .= $colunaValor . " WHERE idContato = $id";
-            $stmt = $pdo->prepare($sqlUpdate);
-            $stmt->execute();
-
-        }
-
-        public static function excluirInformacaoTabela($nomeTabela = null, $id = null) {
-            $pdo = self::conectar();
-            $sqlDelete = "DELETE FROM $nomeTabela WHERE idContato = $id";
-        
-            $stmt = $pdo->prepare($sqlDelete);
-            $stmt->execute();
-            return $sqlDelete;
         }
     }
